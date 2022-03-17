@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "user.h"
 
 
@@ -9,6 +10,7 @@ void showUser(struct user *val) {
 }
 
 void showUsers(struct user *start) {
+    printf("SHOWING USERS:\n");
     while (start != NULL) {
         showUser(start);
         start = start -> next;

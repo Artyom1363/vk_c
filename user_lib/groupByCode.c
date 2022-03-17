@@ -47,6 +47,7 @@ struct user* insertToUserList(struct user* insertAfter, struct user* dataToInser
 
     struct user* newUser = createCopyUser(dataToInsert);
     if (insertAfter == NULL) {
+        newUser -> next = NULL;
         return newUser;
     }
 
@@ -70,8 +71,12 @@ struct user* groupByCode(struct user *start) {
             tmp -> latestWithThisCode = insertedUser;
 
             uniqueValues = tmp;
-            groupedLast -> next = insertedUser;
-            groupedLast = groupedLast -> next;
+            if (groupedLast == NULL) {
+                groupedLast = insertedUser;
+            } else {
+                groupedLast -> next = insertedUser;
+                groupedLast = groupedLast -> next;
+            }
         }
         if (groupedStart == NULL) {
             groupedStart = insertedUser;
