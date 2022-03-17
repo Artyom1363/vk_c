@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(test_func)
+project(test_user)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-fprofile-arcs -ftest-coverage -O0")
@@ -10,5 +10,5 @@ file(GLOB SOURCES *.cpp)
 find_package(GTest REQUIRED)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
-target_include_directories(${PROJECT_NAME} PUBLIC ${HOME1_INCLUDE_DIRS})
-target_link_libraries(${PROJECT_NAME} ${HOME1_LIBRARIES} GTest::gtest_main)
+target_include_directories(${PROJECT_NAME} PUBLIC ${USER_LIB_INCLUDE_DIRS})
+target_link_libraries(${PROJECT_NAME} ${USER_LIB_LIBRARIES} GTest::gtest_main)

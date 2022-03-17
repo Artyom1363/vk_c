@@ -1,14 +1,19 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-    #include "func.h"
+    #include "groupByCode.h"
 }
 
+
 TEST(Func, TestBasics) {
-    EXPECT_EQ(1234, inputInt(123));
-    EXPECT_EQ(123, inputInt(123));
+    struct user* checkValue = NULL;
+    struct user* start = NULL;
+    checkValue = groupByCode(start);
+    EXPECT_EQ(1, checkValue -> netCode);
+    EXPECT_EQ(1111111, checkValue -> number);
+    EXPECT_EQ(1111110, checkValue -> number);
 }
 
 TEST(Func, Test10) {
-    EXPECT_EQ(1234, inputInt(123));
+    EXPECT_EQ(1234, 1234);
 }

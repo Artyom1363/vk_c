@@ -1,14 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "user_lib/groupByCode.h"
+#include "user_lib/user.h"
 // #include <gtest/gtest.h>
 
-struct user {
-    int netCode;
-    int number;
-    char *name;
-    struct user *next;
-};
 
 char input_char() {
     char c = '\0';
@@ -98,19 +94,6 @@ void printMenu() {
     printf("2 to show users data\n");
 }
 
-void showUser(struct user* val) {
-    printf("Network code: %d\n", val -> netCode);
-    printf("Phone number: %d\n", val -> netCode);
-    printf("Username: %s\n", val -> name);
-}
-
-void showUsers(struct user* start) {
-    while (start != NULL) {
-        showUser(start);
-        start = start -> next;
-    }
-    return;
-}
 
 void startProgramm(struct user* first) {
     struct user *latest = NULL;
