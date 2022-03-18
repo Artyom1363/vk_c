@@ -4,7 +4,8 @@
 typedef struct user {
     int netCode;
     int number;
-    char name[20];
+    int bufLen;
+    char* name;
     struct user *next;
 } user;
 

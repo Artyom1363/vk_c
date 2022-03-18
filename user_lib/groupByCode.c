@@ -23,8 +23,10 @@ user* createCopyUser(user* from) {
     user* newUser = malloc(sizeof(user));
     newUser->netCode = from->netCode;
     newUser->number = from->number;
+    newUser->bufLen = from->bufLen;
 
-    strcpy(newUser->name, from->name);
+    newUser->name = malloc((newUser->bufLen) * sizeof(char));
+    memcpy(newUser->name, from->name, newUser->bufLen);
 
     // made to satisfy function name
     newUser->next = from->next;

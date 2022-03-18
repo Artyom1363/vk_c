@@ -8,6 +8,7 @@ typedef struct netCodeNode {
     struct netCodeNode* next;
     user* latestWithThisCode;
 } netCodeNode;
+
 user* checkInAlreadyUsed(int code, netCodeNode* uniqueValues);
 
 user* createCopyUser(user* from);
