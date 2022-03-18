@@ -142,8 +142,10 @@ void startProgramm(struct user* first) {
 
 int main() {
     struct user* first = fillTestList();
-    printf("test print\n");
+    printf("DEBUG: test print\n");
     struct user* second = groupByCode(first);
+    cleanUsersList(first);
+    cleanUsersList(second);
     // startProgramm(first);
     return 0;
 }

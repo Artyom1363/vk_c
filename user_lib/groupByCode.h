@@ -14,6 +14,8 @@ struct user* createCopyUser(struct user* from);
 
 struct user* insertToUserList(struct user* insertAfter, struct user* dataToInsert);
 
+void cleanNetCodeList(struct netCodeNode* first);
+
 struct user* groupByCode(struct user *start);
 
 #endif

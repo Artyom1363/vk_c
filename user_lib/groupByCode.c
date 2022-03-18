@@ -56,6 +56,14 @@ struct user* insertToUserList(struct user* insertAfter, struct user* dataToInser
     return newUser;
 }
 
+void cleanNetCodeList(struct netCodeNode* first) {
+    while (first != NULL) {
+        struct netCodeNode* tmp = first;
+        first = first -> next;
+        free(tmp);
+    }
+}
+
 struct user* groupByCode(struct user *start) {
     struct user* userPtr = start;
     struct user* groupedStart = NULL;
@@ -83,5 +91,6 @@ struct user* groupByCode(struct user *start) {
         }
         userPtr = userPtr -> next;
     }
+    cleanNetCodeList(uniqueValues);
     return groupedStart;
 }
