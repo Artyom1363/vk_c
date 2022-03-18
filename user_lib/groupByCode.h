@@ -3,19 +3,19 @@
 
 #include "user.h"
 
-struct netCodeNode {
+typedef struct netCodeNode {
     int netCode;
     struct netCodeNode* next;
-    struct user* latestWithThisCode;
-};
-struct user* checkInAlreadyUsed(int code, struct netCodeNode* uniqueValues);
+    user* latestWithThisCode;
+} netCodeNode;
+user* checkInAlreadyUsed(int code, netCodeNode* uniqueValues);
 
-struct user* createCopyUser(struct user* from);
+user* createCopyUser(user* from);
 
-struct user* insertToUserList(struct user* insertAfter, struct user* dataToInsert);
+user* insertToUserList(user* insertAfter, user* dataToInsert);
 
-void cleanNetCodeList(struct netCodeNode* first);
+void cleanNetCodeList(netCodeNode* first);
 
-struct user* groupByCode(struct user *start);
+user* groupByCode(user* start);
 
 #endif

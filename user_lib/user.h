@@ -1,16 +1,16 @@
 #ifndef USER_H
 #define USER_H
 
-struct user {
+typedef struct user {
     int netCode;
     int number;
     char name[20];
     struct user *next;
-};
+} user;
 
-void cleanUsersList(struct user *start);
-void showUser(struct user *val);
-void showUsers(struct user *start);
+void cleanUsersList(user *start);
+void showUser(user *val);
+void showUsers(user *start);
 
 
 #endif

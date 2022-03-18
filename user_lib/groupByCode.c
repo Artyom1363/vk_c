@@ -5,28 +5,28 @@
 #include "groupByCode.h"
 
 
-struct user* checkInAlreadyUsed(int code, struct netCodeNode* uniqueValues) {
+user* checkInAlreadyUsed(int code, netCodeNode* uniqueValues) {
     while (uniqueValues != NULL) {
-        if (uniqueValues -> netCode == code) {
-            return uniqueValues -> latestWithThisCode;
+        if (uniqueValues->netCode == code) {
+            return uniqueValues->latestWithThisCode;
         }
-        uniqueValues = uniqueValues -> next;
+        uniqueValues = uniqueValues->next;
     }
     return NULL;
 }
 
-struct user* createCopyUser(struct user* from) {
+user* createCopyUser(user* from) {
     if (from == NULL) {
         return NULL;
     }
-    struct user* newUser = (struct user*)malloc(sizeof(struct user));
-    newUser -> netCode = from -> netCode;
-    newUser -> number = from -> number;
+    user* newUser = (user*)malloc(sizeof(user));
+    newUser->netCode = from->netCode;
+    newUser->number = from->number;
 
-    strcpy(newUser -> name, from -> name);
+    strcpy(newUser->name, from->name);
 
     // made to satisfy function name
-    newUser -> next = from -> next;
+    newUser->next = from->next;
     return newUser;
 }
 
@@ -35,7 +35,7 @@ struct user* createCopyUser(struct user* from) {
 * create new user and insert him after first argument
 * if first argument is NULL insert instead of NULL
 */
-struct user* insertToUserList(struct user* insertAfter, struct user* dataToInsert) {
+user* insertToUserList(user* insertAfter, user* dataToInsert) {
     /*if (insertAfter == NULL) {
         printf("ERROR: could not create a UserNode after NULL ptr\n");
         exit(0);
@@ -45,51 +45,51 @@ struct user* insertToUserList(struct user* insertAfter, struct user* dataToInser
         exit(0);
     }
 
-    struct user* newUser = createCopyUser(dataToInsert);
+    user* newUser = createCopyUser(dataToInsert);
     if (insertAfter == NULL) {
-        newUser -> next = NULL;
+        newUser->next = NULL;
         return newUser;
     }
 
-    newUser -> next = insertAfter -> next;
-    insertAfter -> next = newUser;
+    newUser->next = insertAfter->next;
+    insertAfter->next = newUser;
     return newUser;
 }
 
-void cleanNetCodeList(struct netCodeNode* first) {
+void cleanNetCodeList(netCodeNode* first) {
     while (first != NULL) {
-        struct netCodeNode* tmp = first;
-        first = first -> next;
+        netCodeNode* tmp = first;
+        first = first->next;
         free(tmp);
     }
 }
 
-struct user* groupByCode(struct user *start) {
-    struct user* userPtr = start;
-    struct user* groupedStart = NULL;
-    struct user* groupedLast = NULL;
-    struct netCodeNode* uniqueValues = NULL; // (struct user*)malloc(sizeof(struct user));
+user* groupByCode(user *start) {
+    user* userPtr = start;
+    user* groupedStart = NULL;
+    user* groupedLast = NULL;
+    netCodeNode* uniqueValues = NULL;
     while (userPtr != NULL) {
-        struct user* ptrToInsertNewUser = checkInAlreadyUsed(userPtr -> netCode, uniqueValues);
-        struct user* insertedUser = insertToUserList(ptrToInsertNewUser, userPtr);
+        user* ptrToInsertNewUser = checkInAlreadyUsed(userPtr->netCode, uniqueValues);
+        user* insertedUser = insertToUserList(ptrToInsertNewUser, userPtr);
         if (ptrToInsertNewUser == NULL) {
-            struct netCodeNode* tmp = (struct netCodeNode*)malloc(sizeof(struct netCodeNode));
-            tmp -> netCode = userPtr -> netCode;
-            tmp -> next = uniqueValues;
-            tmp -> latestWithThisCode = insertedUser;
+            netCodeNode* tmp = (netCodeNode*)malloc(sizeof(netCodeNode));
+            tmp->netCode = userPtr->netCode;
+            tmp->next = uniqueValues;
+            tmp->latestWithThisCode = insertedUser;
 
             uniqueValues = tmp;
             if (groupedLast == NULL) {
                 groupedLast = insertedUser;
             } else {
-                groupedLast -> next = insertedUser;
-                groupedLast = groupedLast -> next;
+                groupedLast->next = insertedUser;
+                groupedLast = groupedLast->next;
             }
         }
         if (groupedStart == NULL) {
             groupedStart = insertedUser;
         }
-        userPtr = userPtr -> next;
+        userPtr = userPtr->next;
     }
     cleanNetCodeList(uniqueValues);
     return groupedStart;

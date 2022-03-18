@@ -4,11 +4,11 @@ extern "C" {
     #include "groupByCode.h"
 }
 
-struct user* fillTestList() {
-    struct user* user1 = (struct user*)malloc(sizeof(struct user));
-    struct user* user2 = (struct user*)malloc(sizeof(struct user));
-    struct user* user3 = (struct user*)malloc(sizeof(struct user));
-    struct user* user4 = (struct user*)malloc(sizeof(struct user));
+user* fillTestList() {
+    user* user1 = (user*)malloc(sizeof(user));
+    user* user2 = (user*)malloc(sizeof(user));
+    user* user3 = (user*)malloc(sizeof(user));
+    user* user4 = (user*)malloc(sizeof(user));
 
     user1 -> netCode = 123;
     user1 -> number = 1000001;
@@ -29,14 +29,11 @@ struct user* fillTestList() {
     return user1;
 }
 
-TEST(TestGrouping, checkInAlreadyUsed) {
-}
-
 TEST(TestGrouping, insertToUserList) {
-    struct user* startValue = fillTestList();
-    struct user* expectedData = startValue -> next;
-    struct user* dataToInsert = (startValue -> next) -> next;
-    struct user* insertedData = insertToUserList(startValue, dataToInsert);
+    user* startValue = fillTestList();
+    user* expectedData = startValue -> next;
+    user* dataToInsert = (startValue -> next) -> next;
+    user* insertedData = insertToUserList(startValue, dataToInsert);
     EXPECT_EQ(1000001, startValue -> number);
     EXPECT_EQ(insertedData, startValue -> next);
     EXPECT_EQ(insertedData -> next, expectedData);
@@ -46,12 +43,12 @@ TEST(TestGrouping, insertToUserList) {
 
 TEST(TestGrouping, groupByCode) {
     
-    struct user* start = fillTestList();
-    struct user* check1 = groupByCode(start);
+    user* start = fillTestList();
+    user* check1 = groupByCode(start);
 
-    struct user* check2 = check1 -> next;
-    struct user* check3 = check2 -> next;
-    struct user* check4 = check3 -> next;
+    user* check2 = check1 -> next;
+    user* check3 = check2 -> next;
+    user* check4 = check3 -> next;
 
     EXPECT_EQ(123, check1 -> netCode);
     EXPECT_EQ(1000001, check1 -> number);
@@ -65,7 +62,6 @@ TEST(TestGrouping, groupByCode) {
     EXPECT_EQ(222, check4 -> netCode);
     EXPECT_EQ(1000003, check4 -> number);
 
-    // showUsers(checkValue);
 }
 
 TEST(Func, testCi) {
