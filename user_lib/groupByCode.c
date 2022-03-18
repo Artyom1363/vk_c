@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "user.h"
 #include "groupByCode.h"
 
@@ -22,8 +23,7 @@ struct user* createCopyUser(struct user* from) {
     newUser -> netCode = from -> netCode;
     newUser -> number = from -> number;
 
-    // TODO UPDATE THIS TO DINAMIC DATA
-    newUser -> name = from -> name;
+    strcpy(newUser -> name, from -> name);
 
     // made to satisfy function name
     newUser -> next = from -> next;

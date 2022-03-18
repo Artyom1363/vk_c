@@ -4,7 +4,7 @@
 struct user {
     int netCode;
     int number;
-    char *name;
+    char name[20];
     struct user *next;
 };
 
