@@ -54,6 +54,6 @@ TEST(TestGrouping, groupByCode) {
     // showUsers(checkValue);
 }
 
-TEST(Func, Test10) {
-    EXPECT_EQ(1234, 1234);
+TEST(Func, testCi) {
+    EXPECT_EQ(1233, 1234);
 }
