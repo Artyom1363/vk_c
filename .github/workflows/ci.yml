@@ -9,7 +9,6 @@ jobs:
       - run: |
              apt update -y
              apt install cmake -y
-             apt install libgtest-dev
              apt install -y cppcheck clang-tidy python3-pip libc6-dbg cmake libgtest-dev
              make check
       - run: |

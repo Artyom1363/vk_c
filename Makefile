@@ -5,7 +5,6 @@ check:
 build:
 	mkdir build
 	cd build && \
-	echo "I'm in build" && \
 	cmake .. && \
 	cmake --build .
 
