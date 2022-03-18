@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "user.h"
 #include "groupByCode.h"
 
@@ -19,7 +20,7 @@ user* createCopyUser(user* from) {
     if (from == NULL) {
         return NULL;
     }
-    user* newUser = (user*)malloc(sizeof(user));
+    user* newUser = malloc(sizeof(user));
     newUser->netCode = from->netCode;
     newUser->number = from->number;
 
@@ -73,7 +74,7 @@ user* groupByCode(user *start) {
         user* ptrToInsertNewUser = checkInAlreadyUsed(userPtr->netCode, uniqueValues);
         user* insertedUser = insertToUserList(ptrToInsertNewUser, userPtr);
         if (ptrToInsertNewUser == NULL) {
-            netCodeNode* tmp = (netCodeNode*)malloc(sizeof(netCodeNode));
+            netCodeNode* tmp = malloc(sizeof(netCodeNode));
             tmp->netCode = userPtr->netCode;
             tmp->next = uniqueValues;
             tmp->latestWithThisCode = insertedUser;

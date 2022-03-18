@@ -1,15 +1,19 @@
 #include <stdlib.h>
 #include <stdio.h>
+
 #include "user.h"
 
 
-void showUser(struct user *val) {
+void showUser(user *val) {
+    if (val == NULL) {
+        return;
+    }
     printf("Network code: %d\n", val -> netCode);
     printf("Phone number: %d\n", val -> number);
     printf("Username: %s\n", val -> name);
 }
 
-void showUsers(struct user *start) {
+void showUsers(user *start) {
     printf("SHOWING USERS:\n");
     while (start != NULL) {
         showUser(start);
@@ -18,9 +22,9 @@ void showUsers(struct user *start) {
     return;
 }
 
-void cleanUsersList(struct user *start) {
+void cleanUsersList(user *start) {
     while (start != NULL) {
-        struct user* tmp = start;
+        user* tmp = start;
         start = start -> next;
         free(tmp);
     }

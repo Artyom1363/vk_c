@@ -1,18 +1,18 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
 #include "user_lib/groupByCode.h"
 #include "user_lib/user.h"
-// #include <gtest/gtest.h>
 
 
 user* fillTestList() {
-    user* user1 = (user*)malloc(sizeof(user));
-    user* user2 = (user*)malloc(sizeof(user));
-    user* user3 = ( user*)malloc(sizeof(user));
-    user* user4 = ( user*)malloc(sizeof(user));
-    user* user5 = ( user*)malloc(sizeof(user));
-    user* user6 = ( user*)malloc(sizeof(user));
+    user* user1 = malloc(sizeof(user));
+    user* user2 = malloc(sizeof(user));
+    user* user3 = malloc(sizeof(user));
+    user* user4 = malloc(sizeof(user));
+    user* user5 = malloc(sizeof(user));
+    user* user6 = malloc(sizeof(user));
 
     user1->netCode = 123;
     user1->number = 1000001;
