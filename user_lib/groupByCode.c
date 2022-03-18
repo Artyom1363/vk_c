@@ -91,6 +91,6 @@ struct user* groupByCode(struct user *start) {
         }
         userPtr = userPtr -> next;
     }
-    cleanNetCodeList(uniqueValues);
+    // cleanNetCodeList(uniqueValues);
     return groupedStart;
 }

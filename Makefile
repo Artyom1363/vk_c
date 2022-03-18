@@ -13,6 +13,7 @@ test:
 	./tests/test_user
 	gcc it.c user_lib/*.c && \
 	valgrind --tool=memcheck --leak-check=yes ./a.out
+	
 
 clean:
 	rm -rf build
