@@ -1,9 +1,16 @@
 check:
-	echo "Implement check"
+	./linters/run.sh
 
 build:
-	echo "Typo"
+	mkdir build
+	cd build && \
+	echo "I'm in build" && \
+	cmake .. && \
+	cmake --build .
 
 test:
-	echo "Testing"
+	cd build && \
+	./tests/test_user
 
+clean:
+	rm -rf build

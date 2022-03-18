@@ -43,6 +43,7 @@ TEST(TestGrouping, insertToUserList) {
     EXPECT_EQ(startValue -> number, (insertToUserList(NULL, startValue) -> number));
 }
 
+
 TEST(TestGrouping, groupByCode) {
     
     struct user* start = fillTestList();
