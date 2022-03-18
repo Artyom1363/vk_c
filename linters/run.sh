@@ -21,8 +21,8 @@ function check_log() {
     fi
 }
 
-# print_header "RUN cppcheck"
-# check_log "cppcheck user_lib --enable=all --inconclusive --error-exitcode=1 -I user_lib --suppress=missingIncludeSystem" "\(information\)"
+print_header "RUN cppcheck"
+check_log "cppcheck user_lib --enable=all --inconclusive --error-exitcode=1 -I user_lib --suppress=missingIncludeSystem" "\(information\)"
 
 print_header "RUN clang-tidy"
 check_log "clang-tidy user_lib/* -warnings-as-errors=* -extra-arg=-std=c99 -- -Iuser_lib" "Error (?:reading|while processing)"

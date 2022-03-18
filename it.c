@@ -11,6 +11,8 @@ struct user* fillTestList() {
     struct user* user2 = (struct user*)malloc(sizeof(struct user));
     struct user* user3 = (struct user*)malloc(sizeof(struct user));
     struct user* user4 = (struct user*)malloc(sizeof(struct user));
+    struct user* user5 = (struct user*)malloc(sizeof(struct user));
+    struct user* user6 = (struct user*)malloc(sizeof(struct user));
 
     user1 -> netCode = 123;
     user1 -> number = 1000001;
@@ -26,11 +28,20 @@ struct user* fillTestList() {
 
     user4 -> netCode = 123;
     user4 -> number = 1000004;
-    user4 -> next = NULL;
+    user4 -> next = user5;
+
+    user5 -> netCode = 123;
+    user5 -> number = 1000005;
+    user5 -> next = user6;
+
+    user6 -> netCode = 222;
+    user6 -> number = 1000006;
+    user6 -> next = NULL;
 
     return user1;
 }
 
+/*
 char input_char() {
     char c = '\0';
     int result = 0;
@@ -39,7 +50,9 @@ char input_char() {
     } while (result != 1);
     return c;
 }
+*/
 
+/*
 char *input_string() {
     struct buffer {
         char *string;
@@ -70,13 +83,16 @@ char *input_string() {
     }
     return buf.string;
 }
+*/
 
+
+/*
 int input_int() {
     char c = '\0';
     int result = 0;
     while (c = input_char(), c != EOF && c != '\n') {
         if (!(c >= '0' && c <= '9')) {
-            char *buf = input_string(); /* Read to the end of the string */
+            char *buf = input_string(); 
             if (buf) {
                 free(buf);
             }
@@ -86,7 +102,9 @@ int input_int() {
     }
     return result;
 }
+*/
 
+/*
 int getPhoneNumber() {
     int value = input_int();
     while (!(value <= 9999999 && value >= 1000000)) {
@@ -95,7 +113,9 @@ int getPhoneNumber() {
     }
     return value;
 }
+*/
 
+/*
 struct user *getUserData() {
     struct user *data = (struct user *)malloc(sizeof(struct user));
     data -> next = NULL;
@@ -111,15 +131,19 @@ struct user *getUserData() {
     data -> name = getName;
     return data;
 }
+*/
 
 
+/*
 void printMenu() {
     printf("Press:\n");
     printf("1 to enter new user data\n");
     printf("2 to show users data\n");
 }
+*/
 
 
+/*
 void startProgramm(struct user* first) {
     struct user *latest = NULL;
     while (1) {
@@ -138,15 +162,18 @@ void startProgramm(struct user* first) {
         }
     }
 }
+*/
 
 
 int main() {
     struct user* first = fillTestList();
-    printf("DEBUG: test print\n");
     struct user* second = groupByCode(first);
+    printf("THIS IS FIRST LIST:\n");
+    showUsers(first);
+    printf("\n\n\n\nTHIS IS GROUPED LIST:\n");
+    showUsers(second);
     cleanUsersList(first);
     cleanUsersList(second);
-    // startProgramm(first);
     return 0;
 }
 
