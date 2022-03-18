@@ -6,7 +6,10 @@ jobs:
     container: leshiy1295/gcc_linters
     steps:
       - uses: actions/checkout@v2 
-      - run: make check
+      - run: |
+             apt-get install cmake
+             make check
+
   build:
     runs-on: ubuntu-latest
     container: leshiy1295/gcc_linters
