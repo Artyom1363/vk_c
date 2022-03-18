@@ -18,3 +18,15 @@ test:
 
 clean:
 	rm -rf build
+
+update:
+	make clean
+	make build
+	make test
+
+create_report:
+	make update
+	cd build && \
+	lcov -t "tests/test_user" -o coverage.info -c -d user_lib/ && \
+	genhtml -o report coverage.info
+	cp -r build/report report
