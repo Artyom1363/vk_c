@@ -1,3 +1,4 @@
+// compile in docker with: gcc -g -lm -pthread thread.c
 #include <stdlib.h> // EXIT_SUCCESS
 #include <pthread.h>
 #include <stdio.h>
@@ -36,6 +37,8 @@ typedef struct vectorsForThread {
     struct vectorsForThread* next;
 } vectorsForThreads;
 
+void timeMethods(int quanWithMultiThreads, int quanWithOneTread, 
+                 vector* start, vectorsForThreads* vectorsThreadsStart);
 
 
 vector* createVector(int dimentions) {
@@ -91,17 +94,6 @@ vectorsForThreads* generateData(int vectorsQuan, int threadsQuan) {
     return partitionStart;
 }
 
-/*
-void showData(vector* start) {
-    while (start != NULL) {
-        printf("Vector:\n");
-        printf("x1: %d\n", start->x1);
-        printf("x1: %d\n", start->x2);
-        start = start->next;
-    }
-}
-*/
-
 
 int calculateVectorsQuantity(vector* start) {
     int count = 0;
@@ -112,7 +104,7 @@ int calculateVectorsQuantity(vector* start) {
     return count;
 }
 
-double calculateCosineDist(vector* v1, vector *v2, int dimentions) {
+double calculateCosineDist(vector* v1, vector* v2, int dimentions) {
     double cosMultiplication = 0;
     double lenOfVectorV1 = 0, sqOfLenOfVectorV1 = 0;
     double lenOfVectorV2 = 0, sqOfLenOfVectorV2 = 0;
@@ -129,10 +121,7 @@ double calculateCosineDist(vector* v1, vector *v2, int dimentions) {
 
 
 void *thread_routine(void *arg) {
-    time_t startTime, endTime;
-    startTime =  time(NULL);
     
-    // buildTreads(vectorsThreadsStart, THREADS_QUANTITY);
     data* dat = (data*)arg;
     vector* initialVect = dat->initial;
     vector* startCalc = dat->start;
@@ -145,32 +134,39 @@ void *thread_routine(void *arg) {
         ++count;
         startCalc = startCalc->next;
     }
-    printf("Min dist is:%f\n", minDist);
-    printf("Done!\nProcessed %d vectors\n", count);
-    endTime = time(NULL);
-    printf("Time of working:%f\n", difftime(endTime, startTime));
+    // printf("Min dist is:%f\n", minDist);
+    // printf("Done!\nProcessed %d vectors\n", count);
     return NULL;
 }
 
 
-void buildTreads(vectorsForThreads* vectorsThreadsStart, int treadsQuantity) {
+void buildTreads(vectorsForThreads* vectorsThreadsStart, int threadsQuantity) {
     vectorsForThreads* vectorsThreadsPtr = vectorsThreadsStart;
-    data* dat = malloc(sizeof(data) * treadsQuantity);
-    for (int i = 0; i < treadsQuantity; ++i) {
-        dat[i].initial = NULL;
+    data* dat = malloc(sizeof(data) * threadsQuantity);
+    vector* initialVector = vectorsThreadsStart->start;
+    pthread_t *threads = malloc(sizeof(pthread_t) * threadsQuantity);
+
+    // creating threads
+    for (int i = 0; i < threadsQuantity; ++i) {
+        dat[i].initial = initialVector;
         dat[i].start = vectorsThreadsPtr->start;
         dat[i].end = vectorsThreadsPtr->end;
         vectorsThreadsPtr = vectorsThreadsPtr->next;
         int errflag = 0;
-        pthread_t thread;
-        errflag = pthread_create(&thread, NULL, thread_routine, &dat[i]);
+        errflag = pthread_create(&threads[i], NULL, thread_routine, &dat[i]);
+
         // check if thread_create call was successful
         if (errflag != 0) {
             printf("Main: caught error in create thread in cycle: %d\n", errflag);
         }
-        printf("Main: thread id: %ld\n", thread);
+        // printf("Thread id: %ld\n", threads[i]);
     }
-    pthread_exit(0);
+
+    // waiting for all threads
+    for (int i = 0; i < threadsQuantity; ++i) {
+        pthread_join(threads[i], NULL);
+    }
+    
 }
 
 void buildOneTread(vector* start) {
@@ -188,11 +184,15 @@ void buildOneTread(vector* start) {
     if (errflag != 0) {
         printf("Main: caught error: %d\n", errflag);
     }
-    printf("Main: thread id: %ld\n", thread);
-    pthread_exit(0);
+    // printf("Thread id: %ld\n", thread);
+    pthread_join(thread, NULL);
+
+    
 }
 
 int main() {
+
+
     vectorsForThreads* vectorsThreadsStart = generateData(VECTORS_QUANTITY, THREADS_QUANTITY);
     // return 0;
     vectorsForThreads* vectorsThreadsPtr = vectorsThreadsStart;
@@ -200,14 +200,39 @@ int main() {
     printf("Quantity of vectors: %d\n", calculateVectorsQuantity(start));
     // return 0;
     // showData(start);
-    time_t startTime, endTime;
-    startTime =  time(NULL);
-    // buildTreads(vectorsThreadsStart, THREADS_QUANTITY);
 
-    buildOneTread(start);
-    endTime = time(NULL);
-    printf("Time of working:%f\n", difftime(endTime, startTime));
-    
+    timeMethods(1, 1, start, vectorsThreadsStart);
     
     return 0;
+}
+
+void timeMethods(int quanWithMultiThreads, int quanWithOneTread, 
+                 vector* start, vectorsForThreads* vectorsThreadsStart) {
+
+    int threadsQuan = THREADS_QUANTITY;
+    for (int i = 0; i < quanWithMultiThreads; ++i) {
+        struct timespec begin, end;
+        double elapsed;
+        clock_gettime(CLOCK_MONOTONIC, &begin);
+
+        buildTreads(vectorsThreadsStart, THREADS_QUANTITY);
+
+        clock_gettime(CLOCK_MONOTONIC, &end);
+        elapsed = end.tv_sec - begin.tv_sec;
+        elapsed += (end.tv_nsec - begin.tv_nsec) / 1000000000.0;
+        printf("Time by %d threads:%f\n", threadsQuan, elapsed);
+    }
+
+    for (int i = 0; i < quanWithOneTread; ++i) {
+        struct timespec begin, end;
+        double elapsed;
+        clock_gettime(CLOCK_MONOTONIC, &begin);
+
+        buildOneTread(start);
+
+        clock_gettime(CLOCK_MONOTONIC, &end);
+        elapsed = end.tv_sec - begin.tv_sec;
+        elapsed += (end.tv_nsec - begin.tv_nsec) / 1000000000.0;
+        printf("Time by one thread:%f\n", elapsed);
+    }
 }
