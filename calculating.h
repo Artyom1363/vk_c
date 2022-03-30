@@ -9,12 +9,12 @@
 #include "structures.h"
 
 
-double calculateCosineDist(vector* v1, vector* v2, int dimentions);
+double calculateCosineDist(vector v1, vector v2, int dimentions);
 
 void *thread_routine(void *arg);
 
-void buildTreads(vectorsForThreads* vectorsThreadsStart, int threadsQuantity);
+void buildTreads(vector* arrayOfVectors, int sizeOfArray, vector* initialVect, int threadsQuantity);
 
-void buildOneTread(vector* start);
+void buildOneTread(vector* start, int sizeOfArray, vector* initialVect);
 
 #endif

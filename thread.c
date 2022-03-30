@@ -14,15 +14,16 @@
 
 int main() {
 
-    vectorsForThreads* vectorsThreadsStart = generateData(VECTORS_QUANTITY, THREADS_QUANTITY);
+    // vectorsForThreads* vectorsThreadsStart = generateData(VECTORS_QUANTITY, THREADS_QUANTITY);
     // return 0;
-    vectorsForThreads* vectorsThreadsPtr = vectorsThreadsStart;
-    vector* start = vectorsThreadsStart->start;
-    printf("Quantity of vectors: %d\n", calculateVectorsQuantity(start));
+    // vectorsForThreads* vectorsThreadsPtr = vectorsThreadsStart;
+    // vector* start = vectorsThreadsStart->start;
+    // printf("Quantity of vectors: %d\n", calculateVectorsQuantity(start));
     // return 0;
     // showData(start);
+    vector* array = createArrayOfVectors(VECTORS_QUANTITY, DIMENTIONS);
 
-    timeMethods(0, 0, start, vectorsThreadsStart, THREADS_QUANTITY);
+    timeMethods(3, 0, array, VECTORS_QUANTITY, THREADS_QUANTITY);
     
     return 0;
 }

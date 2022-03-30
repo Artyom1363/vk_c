@@ -7,7 +7,7 @@
 #include "structures.h"
 #include "calculating.h"
 
-void timeMethods(int quanWithMultiThreads, int quanWithOneTread, 
-                 vector* start, vectorsForThreads* vectorsThreadsStart, int threadsQuan);
+void timeMethods(int quanLaunchesMultiTreads, int quanLaunchesOneTread, 
+                 vector* array, int sizeOfArray, int threadsQuan);
 
 #endif

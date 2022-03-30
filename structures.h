@@ -9,7 +9,7 @@
 // this is struct with vectors
 typedef struct vector {
     double* coords;
-    struct vector* next;
+    // struct vector* next;
 } vector;
 
 
@@ -18,21 +18,23 @@ typedef struct data {
     //vector for which we want to calculate min dist
     vector* initial;
     vector* start;
-    vector* end;
+    int quantity;
 } data;
 
 
 // this is struct contains pointers (to vectors) for threads
 typedef struct vectorsForThread {
     vector* start;
-    vector* end;
-    struct vectorsForThread* next;
+    int quantity;
+    // struct vectorsForThread* next;
 } vectorsForThreads;
 
-vector* createVector(int dimentions);
+vector createVector(int dimentions);
 
-vectorsForThreads* generateData(int vectorsQuan, int threadsQuan);
+vector* createArrayOfVectors(int vectorsQuan, int threadsQuan);
 
-int calculateVectorsQuantity(vector* start);
+vectorsForThreads* separateByThreads(vector* arrayOfVectors, int vectorsQuan, int threadsQuan);
+
+int calculateVectorsQuantity(vectorsForThreads* ptrForThreads, int threadsQuan);
 
 #endif

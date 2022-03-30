@@ -1,14 +1,18 @@
 #include "timeThreads.h"
+#include "structures.h"
+#include "calculating.h"
 
-void timeMethods(int quanWithMultiThreads, int quanWithOneTread, 
-                 vector* start, vectorsForThreads* vectorsThreadsStart, int threadsQuan) {
+void timeMethods(int quanLaunchesMultiTreads, int quanLaunchesOneTread, 
+                 vector* array, int sizeOfArray, int threadsQuan) {
+    
+    vector initial = createVector(DIMENTIONS);
 
-    for (int i = 0; i < quanWithMultiThreads; ++i) {
+    for (int i = 0; i < quanLaunchesMultiTreads; ++i) {
         struct timespec begin, end;
         double elapsed;
         clock_gettime(CLOCK_MONOTONIC, &begin);
 
-        buildTreads(vectorsThreadsStart, threadsQuan);
+        buildTreads(array, sizeOfArray, &initial, threadsQuan);
 
         clock_gettime(CLOCK_MONOTONIC, &end);
         elapsed = end.tv_sec - begin.tv_sec;
@@ -16,12 +20,12 @@ void timeMethods(int quanWithMultiThreads, int quanWithOneTread,
         printf("Time by %d threads:%f\n", threadsQuan, elapsed);
     }
 
-    for (int i = 0; i < quanWithOneTread; ++i) {
+    for (int i = 0; i < quanLaunchesOneTread; ++i) {
         struct timespec begin, end;
         double elapsed;
         clock_gettime(CLOCK_MONOTONIC, &begin);
 
-        buildOneTread(start);
+        buildOneTread(array, sizeOfArray, &initial);
 
         clock_gettime(CLOCK_MONOTONIC, &end);
         elapsed = end.tv_sec - begin.tv_sec;
