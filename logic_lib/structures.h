@@ -3,8 +3,11 @@
 
 #include <stdlib.h>
 
-#define VECTORS_QUANTITY 1e8
-#define DIMENTIONS 15
+#define VECTORS_QUANTITY 10
+#define DIMENTIONS 5
+#define MAX_COORD 500
+#define ZNAM 400.0
+#define THREADS_QUANTITY 1
 
 // this is struct with vectors
 typedef struct vector {
@@ -18,6 +21,7 @@ typedef struct data {
     //vector for which we want to calculate min dist
     vector* initial;
     vector* start;
+    vector* answer;
     int quantity;
 } data;
 
@@ -36,5 +40,9 @@ vector* createArrayOfVectors(int vectorsQuan, int threadsQuan);
 vectorsForThreads* separateByThreads(vector* arrayOfVectors, int vectorsQuan, int threadsQuan);
 
 int calculateVectorsQuantity(vectorsForThreads* ptrForThreads, int threadsQuan);
+
+void showVector(vector vect, int dim);
+
+vector* copyVector(vector* vect, int dim);
 
 #endif

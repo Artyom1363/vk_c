@@ -15,6 +15,6 @@ void *thread_routine(void *arg);
 
 void buildTreads(vector* arrayOfVectors, int sizeOfArray, vector* initialVect, int threadsQuantity);
 
-void buildOneTread(vector* start, int sizeOfArray, vector* initialVect);
+void buildOneTread(vector* arrayOfVectors, int sizeOfArray, vector* initialVect);
 
 #endif
