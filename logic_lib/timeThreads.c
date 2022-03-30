@@ -12,7 +12,7 @@ void timeMethods(int quanLaunchesMultiTreads, int quanLaunchesOneTread,
         double elapsed;
         clock_gettime(CLOCK_MONOTONIC, &begin);
 
-        buildTreads(array, sizeOfArray, &initial, threadsQuan);
+        buildThreads(array, sizeOfArray, &initial, threadsQuan);
 
         clock_gettime(CLOCK_MONOTONIC, &end);
         elapsed = end.tv_sec - begin.tv_sec;
@@ -25,7 +25,7 @@ void timeMethods(int quanLaunchesMultiTreads, int quanLaunchesOneTread,
         double elapsed;
         clock_gettime(CLOCK_MONOTONIC, &begin);
 
-        buildOneTread(array, sizeOfArray, &initial);
+        buildOneThread(array, sizeOfArray, &initial);
 
         clock_gettime(CLOCK_MONOTONIC, &end);
         elapsed = end.tv_sec - begin.tv_sec;

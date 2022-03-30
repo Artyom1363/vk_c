@@ -13,9 +13,9 @@ int main() {
 
     vector* array = createArrayOfVectors(VECTORS_QUANTITY, DIMENTIONS);
     printf("Vectors:\n");
-    for (int i = 0; i < VECTORS_QUANTITY; ++i) {
-        showVector(array[i], DIMENTIONS);
-    }
+    // for (int i = 0; i < VECTORS_QUANTITY; ++i) {
+        // showVector(array[i], DIMENTIONS);
+    // }
     timeMethods(1, 1, array, VECTORS_QUANTITY, THREADS_QUANTITY);
     
     return 0;

@@ -47,7 +47,7 @@ void *thread_routine(void *arg) {
 }
 
 
-void buildTreads(vector* arrayOfVectors, int sizeOfArray, vector* initialVect, int threadsQuantity) {
+void buildThreads(vector* arrayOfVectors, int sizeOfArray, vector* initialVect, int threadsQuantity) {
     
     vectorsForThreads* vectorsThreads = separateByThreads(arrayOfVectors, sizeOfArray, threadsQuantity);
     // printf("initial vector: \n");
@@ -91,7 +91,7 @@ void buildTreads(vector* arrayOfVectors, int sizeOfArray, vector* initialVect, i
     printf("DIST: %f\n", calculateCosineDist(*bestVect, *initialVect, DIMENTIONS));
 }
 
-void buildOneTread(vector* arrayOfVectors, int sizeOfArray, vector* initialVect) {
+void buildOneThread(vector* arrayOfVectors, int sizeOfArray, vector* initialVect) {
     // printf("initial vector: \n");
     // showVector(*initialVect, DIMENTIONS);
 
