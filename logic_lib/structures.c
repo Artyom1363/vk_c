@@ -33,14 +33,14 @@ void scanVector(FILE* file, vector* vect, int dimension) {
     }
 }
 
-dataVector* scanArrayOfVectors(char* fileName) {
+dataVectors* scanArrayOfVectors(char* fileName) {
     FILE* file = fopen(fileName, "r");
     if (file == NULL) {
         return NULL;
     }
     int vectorsQuan = 0;
     int dimension = 0;
-    dataVector* dataFromFile = malloc(sizeof(dataVector));
+    dataVectors* dataFromFile = malloc(sizeof(dataVectors));
     fscanf(file, "%d %d", &vectorsQuan, &dimension);
 
     vector* arrayOfVectors = malloc(sizeof(vector) * vectorsQuan);
@@ -64,7 +64,7 @@ void writeVector(FILE* file, vector* vect, int dimension) {
     fprintf(file, "\n");
 }
 
-void writeArrayOfVectors(dataVector* dataArr, char* fileName) {
+void writeArrayOfVectors(dataVectors* dataArr, char* fileName) {
     FILE* file = fopen(fileName, "w");
     fprintf(file, "%d %d\n", dataArr->size, dataArr->dimension);
     for (int i = 0; i < dataArr->size; ++i) {

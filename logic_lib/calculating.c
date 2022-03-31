@@ -17,18 +17,24 @@ double calculateCosineDist(vector v1, vector v2, int dimentions) {
     return cosDist;
 }
 
-vector* getMinVector(vector* array, vector* initialVect, int sizeOfArray, int dim) {
+vector* getMinVector(dataVectors* dataArr, vector* initialVect) {
+    int sizeOfArray = dataArr->size;
+    int dimension = dataArr->dimension;
+    vector* array = dataArr->array;
+
+
     double minDist = -2.0;
-    int numOfBestVect;
+    int numOfBestVect = 0;
+
     for (int i = 0; i < sizeOfArray; ++i) {
-        double dist = calculateCosineDist(array[i], *initialVect, dim);
+        double dist = calculateCosineDist(array[i], *initialVect, dimension);
         if (dist > minDist) {   
             minDist = dist;
             numOfBestVect = i;
         }
     }
     // printf("Best vect: %d", numOfBestVect);
-    return copyVector(&array[numOfBestVect], dim);
+    return copyVector(&array[numOfBestVect], dimension);
 }
 
 void *thread_routine(void *arg) {
@@ -38,8 +44,13 @@ void *thread_routine(void *arg) {
     vector* startCalc = threadData->start;
     int quantity = threadData->quantity;
     // printf("DEBUG in calc/thread_routine... ptr is %x\n", startCalc);
-    vector* bestVect = getMinVector(startCalc, initialVect, 
-                                    threadData->quantity, DIMENTIONS);
+
+    dataVectors* dataArr = malloc(sizeof(dataVectors));
+    dataArr->array = startCalc;
+    dataArr->size = threadData->quantity;
+    dataArr->dimension = DIMENTIONS;
+    vector* bestVect = getMinVector(dataArr, initialVect);
+    free(dataArr);
 
     // put vector for transfered pointer
     *(threadData->answer) = *(bestVect);
@@ -85,7 +96,14 @@ void buildThreads(vector* arrayOfVectors, int sizeOfArray, vector* initialVect, 
         pthread_join(threads[i], NULL);
         // showVector(minVectors[i], DIMENTIONS);
     }
-    vector* bestVect = getMinVector(minVectors, initialVect, threadsQuantity, DIMENTIONS);
+
+    dataVectors* dataArr = malloc(sizeof(dataVectors));
+    dataArr->array = minVectors;
+    dataArr->size = threadsQuantity;
+    dataArr->dimension = DIMENTIONS;
+    vector* bestVect = getMinVector(dataArr, initialVect);
+    free(dataArr);
+
     printf("Best vector is:\n");
     showVector(*bestVect, DIMENTIONS);
     printf("DIST: %f\n", calculateCosineDist(*bestVect, *initialVect, DIMENTIONS));
@@ -99,9 +117,16 @@ void buildOneThread(vector* arrayOfVectors, int sizeOfArray, vector* initialVect
     // threadData->initial = initialVect;
     // threadData->start = arrayOfVectors;
     // threadData->quantity = sizeOfArray;
-    vector* bestVect = malloc(sizeof(vector));
+    // vector* bestVect = malloc(sizeof(vector));
     // threadData->answer = bestVect;
-    bestVect = getMinVector(arrayOfVectors, initialVect, sizeOfArray, DIMENTIONS);
+
+    dataVectors* dataArr = malloc(sizeof(dataVectors));
+    dataArr->array = arrayOfVectors;
+    dataArr->size = sizeOfArray;
+    dataArr->dimension = DIMENTIONS;
+    vector* bestVect = getMinVector(dataArr, initialVect);
+    free(dataArr);
+
     // printf("sizeOfArray: %d\n", sizeOfArray);
     // thread_routine(threadData);
     showVector(*bestVect, DIMENTIONS);

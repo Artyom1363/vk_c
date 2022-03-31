@@ -11,6 +11,8 @@
 
 double calculateCosineDist(vector v1, vector v2, int dimentions);
 
+vector* getMinVector(dataVectors* dataArr, vector* initialVect);
+
 void *thread_routine(void *arg);
 
 void buildThreads(vector* arrayOfVectors, int sizeOfArray, vector* initialVect, int threadsQuantity);

@@ -11,6 +11,11 @@ run:
 	cd build && \
 	./start
 
+fb:
+	cd build && \
+	cmake .. && \
+	cmake --build .
+
 update:
 	make clean
 	make build

@@ -29,12 +29,12 @@ TEST(TestGrouping, insertToUserList) {
 TEST(TestStructures, separateByThreads) {
     // separateByThreads(vector* arrayOfVectors, int vectorsQuan, int threadsQuan)
     int threadsQuan = 3;
-    int vectorsQuan = 11;
+    int vectorsQuan = 10;
     vector* arrayOfVectors = createArrayOfVectors(vectorsQuan, threadsQuan);
     vectorsForThreads* vectThreads = separateByThreads(arrayOfVectors, vectorsQuan, threadsQuan);
     EXPECT_EQ(vectThreads[0].quantity, 3);
     EXPECT_EQ(vectThreads[1].quantity, 3);
-    EXPECT_EQ(vectThreads[2].quantity, 5);
+    EXPECT_EQ(vectThreads[2].quantity, 4);
 
     EXPECT_EQ(vectThreads[0].start, arrayOfVectors);
     EXPECT_EQ(vectThreads[1].start, (arrayOfVectors + 3));
@@ -44,7 +44,7 @@ TEST(TestStructures, separateByThreads) {
     for (int i = 0; i < threadsQuan; ++i) {
         count += (vectThreads[i]).quantity;
     }
-    EXPECT_EQ(count, 11);
+    EXPECT_EQ(count, 10);
 
 }
 
@@ -83,7 +83,7 @@ TEST(TestCalculating, calculateCosineDist) {
 
 TEST(TestGrouping, scanVector) {
     char nameRead[30] = "tests/data/test_data.txt";
-    dataVector* dataFromFile = scanArrayOfVectors(nameRead);
+    dataVectors* dataFromFile = scanArrayOfVectors(nameRead);
     EXPECT_EQ(dataFromFile->size, 1);
     EXPECT_EQ(dataFromFile->dimension, 3);
     EXPECT_EQ((dataFromFile->array->coords)[0], 1.0);
@@ -92,4 +92,21 @@ TEST(TestGrouping, scanVector) {
     char nameWrite[30] = "tests/data/wrote_data.txt";
     writeArrayOfVectors(dataFromFile, nameWrite);
     // showVector(*(dataFromFile->array), dataFromFile->dimension);
+}
+
+TEST(TestCalculating, getMinVector) {
+    char nameRead[30] = "tests/data/vectors.txt";
+    dataVectors* dataFromFile = scanArrayOfVectors(nameRead);
+    vector* initialVect = (vector*)malloc(sizeof(vector));
+    FILE* file = fopen("tests/data/initVect.txt", "r");
+    scanVector(file, initialVect, dataFromFile->dimension);
+    fclose(file);
+    
+    vector* bestVector = getMinVector(dataFromFile, initialVect);
+
+
+    EXPECT_EQ(bestVector->coords[0], 3.0);
+    EXPECT_EQ(bestVector->coords[1], 2.0);
+    EXPECT_EQ(bestVector->coords[2], 3.0);
+
 }
