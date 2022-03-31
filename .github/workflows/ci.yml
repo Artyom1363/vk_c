@@ -15,4 +15,4 @@ jobs:
              apt install valgrind -y
       - run: |
              make build
-             make test
+             make testall

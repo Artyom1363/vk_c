@@ -28,3 +28,8 @@ gtest:
 debug:
 	cd build && \
 	gdb ./start
+
+testall: 
+	make gtest
+	cd build && \
+	valgrind --tool=memcheck --leak-check=yes ./start
