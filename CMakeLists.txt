@@ -17,7 +17,10 @@ add_executable(${PROJECT_NAME} thread.c)
 # set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -coverage -lgcov" )
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${COSIN_DIST_LIB_INCLUDE_DIRS})
+
 target_link_libraries(${PROJECT_NAME} PRIVATE ${COSIN_DIST_LIB_LIBRARIES})
 
 # add directory with tests
 add_subdirectory(tests)
+
+# target_include_directories(${PROJECT_NAME} PUBLIC ${COSIN_DIST_TEST_LIB_INCLUDE_DIRS})

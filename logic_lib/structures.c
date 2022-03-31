@@ -1,25 +1,57 @@
 #include <stdio.h>
 #include "structures.h"
 
-vector createVector(int dimentions) {
+
+vector createVector(int dimension) {
     vector res;
-    res.coords = malloc(sizeof(double) * dimentions);
-    for (int i = 0; i < dimentions; ++i) {
+    res.coords = malloc(sizeof(double) * dimension);
+    for (int i = 0; i < dimension; ++i) {
         (res.coords)[i] = (rand() % MAX_COORD) / ZNAM;
     }
     return res;
 }
 
-vector* createArrayOfVectors(int vectorsQuan, int threadsQuan) {
-    if (threadsQuan < 1) {
+vector* createArrayOfVectors(int vectorsQuan, int dimension) {
+    if (vectorsQuan == 0) {
         return NULL;
     }
 
     vector* startVector = malloc(sizeof(vector) * vectorsQuan);
     for (int i = 0; i < vectorsQuan; ++i) {
-        (startVector[i]) = createVector(DIMENTIONS);
+        (startVector[i]) = createVector(dimension);
     }
     return startVector;
+}
+
+// this func needs a pointer to empty vector
+void scanVector(FILE* file, vector* vect, int dimension) {
+    vect->coords = malloc(sizeof(double) * dimension);
+    for (int i = 0; i < dimension; ++i) {
+        fscanf(file, "%lf", &(vect->coords[i]));
+    }
+}
+
+dataFromScanedFile* scanArrayOfVectors(char* fileName) {
+    FILE* file = fopen(fileName, "r");
+    if (file == NULL) {
+        return NULL;
+    }
+    int vectorsQuan = 0;
+    int dimension = 0;
+    dataFromScanedFile* dataFromFile = malloc(sizeof(dataFromScanedFile));
+    fscanf(file, "%d %d", &vectorsQuan, &dimension);
+    printf("scaned value: %d", vectorsQuan);
+
+    vector* arrayOfVectors = malloc(sizeof(vector) * vectorsQuan);
+    for (int i = 0; i < vectorsQuan; ++i) {
+        arrayOfVectors[i].coords = malloc(sizeof(double) * dimension);
+        scanVector(file, arrayOfVectors + i, dimension);
+    }
+    fclose(file);
+    dataFromFile->array = arrayOfVectors;
+    dataFromFile->quantity = vectorsQuan;
+    dataFromFile->dimension = dimension;
+    return dataFromFile;
 }
 
 void showVector(vector vect, int dim) {
@@ -31,7 +63,7 @@ void showVector(vector vect, int dim) {
 
 
 
-// returns list, with pointers to array of vector for each tread
+// returns list, with pointers to array of vector for each thread
 vectorsForThreads* separateByThreads(vector* arrayOfVectors, int vectorsQuan, int threadsQuan) {
     if (threadsQuan < 1) {
         return NULL;
@@ -51,15 +83,6 @@ vectorsForThreads* separateByThreads(vector* arrayOfVectors, int vectorsQuan, in
     return ptrForThreads;
 }
 
-
-// считает количество векторов в списке
-int calculateVectorsQuantity(vectorsForThreads* ptrForThreads, int threadsQuan) {
-    int count = 0;
-    for (int i = 0; i < threadsQuan; ++i) {
-        count += (ptrForThreads[i]).quantity;
-    }
-    return count;
-}
 
 vector* copyVector(vector* vect, int dim) {
     vector* res = malloc(sizeof(vector));

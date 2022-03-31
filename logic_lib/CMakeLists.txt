@@ -4,7 +4,7 @@ project(cosin_dist)
 
 # set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-fprofile-arcs -ftest-coverage -fPIC -O0")
 # set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-lm -pthread -g")
-
+set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-g")
 # adds all ".c" files 
 file(GLOB SOURCES *.c)
 file(GLOB INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR})

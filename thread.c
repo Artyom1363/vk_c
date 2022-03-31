@@ -16,7 +16,13 @@ int main() {
     // for (int i = 0; i < VECTORS_QUANTITY; ++i) {
         // showVector(array[i], DIMENTIONS);
     // }
-    timeMethods(1, 1, array, VECTORS_QUANTITY, THREADS_QUANTITY);
+    FILE* file;
+    file = fopen("file.txt", "r");
+    char* name = "file.txt";
+    if (scanArrayOfVectors(name) != NULL) {
+        printf("NOT null\n");
+    }
+    // timeMethods(1, 0, array, VECTORS_QUANTITY, THREADS_QUANTITY);
     
     return 0;
 }

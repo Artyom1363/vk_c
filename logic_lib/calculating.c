@@ -94,16 +94,16 @@ void buildThreads(vector* arrayOfVectors, int sizeOfArray, vector* initialVect, 
 void buildOneThread(vector* arrayOfVectors, int sizeOfArray, vector* initialVect) {
     // printf("initial vector: \n");
     // showVector(*initialVect, DIMENTIONS);
-
-    data* threadData = malloc(sizeof(data));
-    threadData->initial = initialVect;
-    threadData->start = arrayOfVectors;
-    threadData->quantity = sizeOfArray;
+    // malloc(sizeof(int));
+    // data* threadData = malloc(sizeof(data));
+    // threadData->initial = initialVect;
+    // threadData->start = arrayOfVectors;
+    // threadData->quantity = sizeOfArray;
     vector* bestVect = malloc(sizeof(vector));
-    threadData->answer = bestVect;
-    // bestVect = getMinVector(arrayOfVectors, initialVect, sizeOfArray, DIMENTIONS);
+    // threadData->answer = bestVect;
+    bestVect = getMinVector(arrayOfVectors, initialVect, sizeOfArray, DIMENTIONS);
     // printf("sizeOfArray: %d\n", sizeOfArray);
-    thread_routine(threadData);
+    // thread_routine(threadData);
     showVector(*bestVect, DIMENTIONS);
     printf("DIST: %f\n", calculateCosineDist(*bestVect, *initialVect, DIMENTIONS));
 }

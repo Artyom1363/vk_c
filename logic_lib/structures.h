@@ -25,6 +25,12 @@ typedef struct data {
     int quantity;
 } data;
 
+// this struct uses to return value from scaned file
+typedef struct dataFromScanedFile {
+    vector* array;
+    int quantity;
+    int dimension;
+} dataFromScanedFile;
 
 // this is struct contains pointers (to vectors) for threads
 typedef struct vectorsForThread {
@@ -35,11 +41,13 @@ typedef struct vectorsForThread {
 
 vector createVector(int dimentions);
 
-vector* createArrayOfVectors(int vectorsQuan, int threadsQuan);
+vector* createArrayOfVectors(int vectorsQuan, int dim);
+
+void scanVector(FILE* file, vector* vect, int dimension);
+
+dataFromScanedFile* scanArrayOfVectors(char* fileName);
 
 vectorsForThreads* separateByThreads(vector* arrayOfVectors, int vectorsQuan, int threadsQuan);
-
-int calculateVectorsQuantity(vectorsForThreads* ptrForThreads, int threadsQuan);
 
 void showVector(vector vect, int dim);
 

@@ -13,8 +13,8 @@ double calculateCosineDist(vector v1, vector v2, int dimentions);
 
 void *thread_routine(void *arg);
 
-void buildTreads(vector* arrayOfVectors, int sizeOfArray, vector* initialVect, int threadsQuantity);
+void buildThreads(vector* arrayOfVectors, int sizeOfArray, vector* initialVect, int threadsQuantity);
 
-void buildOneTread(vector* arrayOfVectors, int sizeOfArray, vector* initialVect);
+void buildOneThread(vector* arrayOfVectors, int sizeOfArray, vector* initialVect);
 
 #endif
