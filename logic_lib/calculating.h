@@ -9,7 +9,7 @@
 #include "structures.h"
 
 
-double calculateCosineDist(vector v1, vector v2, int dimentions);
+double calculateCosineDist(vector* v1, vector* v2, int dimentions);
 
 vector* getMinVector(dataVectors* dataArr, vector* initialVect);
 

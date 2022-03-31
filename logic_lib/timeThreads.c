@@ -5,14 +5,14 @@
 void timeMethods(int quanLaunchesMultiTreads, int quanLaunchesOneTread, 
                  vector* array, int sizeOfArray, int threadsQuan) {
     
-    vector initial = createVector(DIMENTIONS);
+    vector* initial = createVector(DIMENTIONS);
 
     for (int i = 0; i < quanLaunchesMultiTreads; ++i) {
         struct timespec begin, end;
         double elapsed;
         clock_gettime(CLOCK_MONOTONIC, &begin);
 
-        buildThreads(array, sizeOfArray, &initial, threadsQuan);
+        buildThreads(array, sizeOfArray, initial, threadsQuan);
 
         clock_gettime(CLOCK_MONOTONIC, &end);
         elapsed = end.tv_sec - begin.tv_sec;
@@ -25,12 +25,13 @@ void timeMethods(int quanLaunchesMultiTreads, int quanLaunchesOneTread,
         double elapsed;
         clock_gettime(CLOCK_MONOTONIC, &begin);
 
-        buildOneThread(array, sizeOfArray, &initial);
+        buildOneThread(array, sizeOfArray, initial);
 
         clock_gettime(CLOCK_MONOTONIC, &end);
         elapsed = end.tv_sec - begin.tv_sec;
         elapsed += (end.tv_nsec - begin.tv_nsec) / 1000000000.0;
         printf("Time by one thread:%f\n", elapsed);
     }
+    deleteVector(initial);
     printf("End of testing!\n");
 }

@@ -9,20 +9,20 @@ extern "C" {
 #define EPS 0.00001
 
 
-void setCoordsToVect(vector v1, int dim) {
+void setCoordsToVect(vector* v1, int dim) {
     for (int i = 0; i < dim; ++i) {
-        v1.coords[i] = i;
+        v1->coords[i] = i;
     }
 }
 
 TEST(TestGrouping, insertToUserList) {
     int dim = 5;
-    vector vect = createVector(dim);
+    vector* vect = createVector(dim);
     setCoordsToVect(vect, dim);
-    EXPECT_EQ(vect.coords[0], 0);
-    EXPECT_EQ(vect.coords[1], 1);
-    EXPECT_EQ(vect.coords[2], 2);
-    EXPECT_EQ(vect.coords[3], 3);
+    EXPECT_EQ(vect->coords[0], 0);
+    EXPECT_EQ(vect->coords[1], 1);
+    EXPECT_EQ(vect->coords[2], 2);
+    EXPECT_EQ(vect->coords[3], 3);
 }
 
 
@@ -51,32 +51,32 @@ TEST(TestStructures, separateByThreads) {
 TEST(TestCalculating, calculateCosineDist) {
 
     int dim = 3;
-    vector vect = createVector(dim);
-    vector initVect = createVector(dim);
-    vect.coords[0] = 1.0;
-    vect.coords[1] = 1.0;
-    vect.coords[2] = 1.0;
-    initVect.coords[0] = 1.0;
-    initVect.coords[1] = 1.0;
-    initVect.coords[2] = 1.0;
+    vector* vect = createVector(dim);
+    vector* initVect = createVector(dim);
+    vect->coords[0] = 1.0;
+    vect->coords[1] = 1.0;
+    vect->coords[2] = 1.0;
+    initVect->coords[0] = 1.0;
+    initVect->coords[1] = 1.0;
+    initVect->coords[2] = 1.0;
     double dist = calculateCosineDist(vect, initVect, dim);
     ASSERT_TRUE(abs(dist - 1.0) < EPS);
 
-    vect.coords[0] = 1.5;
-    vect.coords[1] = 1.3;
-    vect.coords[2] = 0.0;
-    initVect.coords[0] = 0;
-    initVect.coords[1] = 0;
-    initVect.coords[2] = 15.0;
+    vect->coords[0] = 1.5;
+    vect->coords[1] = 1.3;
+    vect->coords[2] = 0.0;
+    initVect->coords[0] = 0;
+    initVect->coords[1] = 0;
+    initVect->coords[2] = 15.0;
     dist = calculateCosineDist(vect, initVect, dim);
     ASSERT_TRUE(abs(dist) < EPS);
 
-    vect.coords[0] = 1.0;
-    vect.coords[1] = 1.5;
-    vect.coords[2] = 2.1;
-    initVect.coords[0] = 2.1;
-    initVect.coords[1] = 3.3;
-    initVect.coords[2] = 1.0;
+    vect->coords[0] = 1.0;
+    vect->coords[1] = 1.5;
+    vect->coords[2] = 2.1;
+    initVect->coords[0] = 2.1;
+    initVect->coords[1] = 3.3;
+    initVect->coords[2] = 1.0;
     dist = calculateCosineDist(vect, initVect, dim);
     ASSERT_TRUE(abs(dist - 0.818866) < EPS);
 }

@@ -2,14 +2,19 @@
 #include "structures.h"
 
 
-vector createVector(int dimension) {
-    vector res;
-    res.coords = malloc(sizeof(double) * dimension);
+void createCoordsForVector(vector* vect, int dimension) {
+    vect->coords = malloc(sizeof(double) * dimension);
     for (int i = 0; i < dimension; ++i) {
-        (res.coords)[i] = (rand() % MAX_COORD) / ZNAM;
+        (vect->coords)[i] = (rand() % MAX_COORD) / ZNAM;
     }
+}
+
+vector* createVector(int dimension) {
+    vector* res = malloc(sizeof(vector));
+    createCoordsForVector(res, dimension);
     return res;
 }
+
 
 vector* createArrayOfVectors(int vectorsQuan, int dimension) {
     if (vectorsQuan == 0) {
@@ -18,7 +23,7 @@ vector* createArrayOfVectors(int vectorsQuan, int dimension) {
 
     vector* startVector = malloc(sizeof(vector) * vectorsQuan);
     for (int i = 0; i < vectorsQuan; ++i) {
-        (startVector[i]) = createVector(dimension);
+        createCoordsForVector(&(startVector[i]), dimension);
     }
     return startVector;
 }
@@ -72,9 +77,9 @@ void writeArrayOfVectors(dataVectors* dataArr, char* fileName) {
     }
 } 
 
-void showVector(vector vect, int dim) {
-    for (int i = 0; i < dim; ++i) {
-        printf("%lf ", (vect.coords)[i]);
+void showVector(vector* vect, int dimension) {
+    for (int i = 0; i < dimension; ++i) {
+        printf("%lf ", (vect->coords)[i]);
     }
     printf("\n");
 }
@@ -102,11 +107,31 @@ vectorsForThreads* separateByThreads(vector* arrayOfVectors, int vectorsQuan, in
 }
 
 
-vector* copyVector(vector* vect, int dim) {
+vector* copyVector(vector* vect, int dimension) {
     vector* res = malloc(sizeof(vector));
-    res->coords = malloc(sizeof(int) * dim);
-    for (int i = 0; i < dim; ++i) {
+    res->coords = malloc(sizeof(double) * dimension);
+    for (int i = 0; i < dimension; ++i) {
         (res->coords)[i] = (vect->coords)[i];
     }
     return res;
+}
+
+
+void deleteCoordsForVector(vector* vect) {
+    if (vect == NULL) return;
+    free(vect->coords);
+}
+
+void deleteVector(vector* vect) {
+    if (vect == NULL) return;
+    deleteCoordsForVector(vect);
+    free(vect);
+}
+
+void deleteArrayOfVectors(vector* vect, int sizeOfVect) {
+    if (vect == NULL) return;
+    for (int i = 0; i < sizeOfVect; ++i) {
+        deleteCoordsForVector(vect + i);
+    }
+    free(vect);
 }

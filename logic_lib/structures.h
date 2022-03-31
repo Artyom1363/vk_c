@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 
-#define VECTORS_QUANTITY 10
+#define VECTORS_QUANTITY 1e8
 #define DIMENTIONS 5
 #define MAX_COORD 500
 #define ZNAM 400.0
@@ -39,7 +39,7 @@ typedef struct vectorsForThread {
     // struct vectorsForThread* next;
 } vectorsForThreads;
 
-vector createVector(int dimentions);
+vector* createVector(int dimentions);
 
 vector* createArrayOfVectors(int vectorsQuan, int dimension);
 
@@ -53,8 +53,12 @@ void writeArrayOfVectors(dataVectors* dataArr, char* fileName);
 
 vectorsForThreads* separateByThreads(vector* arrayOfVectors, int vectorsQuan, int threadsQuan);
 
-void showVector(vector vect, int dim);
+void showVector(vector* vect, int dimension);
 
-vector* copyVector(vector* vect, int dim);
+vector* copyVector(vector* vect, int dimension);
+
+void deleteVector(vector* vect);
+
+void deleteArrayOfVectors(vector* vect, int sizeOfVect);
 
 #endif
