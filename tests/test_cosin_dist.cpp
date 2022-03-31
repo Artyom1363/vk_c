@@ -49,7 +49,7 @@ TEST(TestStructures, separateByThreads) {
 }
 
 TEST(TestCalculating, calculateCosineDist) {
-    
+
     int dim = 3;
     vector vect = createVector(dim);
     vector initVect = createVector(dim);
@@ -82,16 +82,14 @@ TEST(TestCalculating, calculateCosineDist) {
 }
 
 TEST(TestGrouping, scanVector) {
-    FILE* file;
-    char name[30] = "tests/data/test_data.txt";
-    file = fopen("tests/data/test_data.txt", "r");
-    dataFromScanedFile* dataFromFile = scanArrayOfVectors(name);
-    fclose(file);
-    EXPECT_EQ(dataFromFile->quantity, 1);
+    char nameRead[30] = "tests/data/test_data.txt";
+    dataVector* dataFromFile = scanArrayOfVectors(nameRead);
+    EXPECT_EQ(dataFromFile->size, 1);
     EXPECT_EQ(dataFromFile->dimension, 3);
     EXPECT_EQ((dataFromFile->array->coords)[0], 1.0);
     EXPECT_EQ((dataFromFile->array->coords)[1], 2.0);
     EXPECT_EQ((dataFromFile->array->coords)[2], 3.0);
-
-    showVector(*(dataFromFile->array), dataFromFile->dimension);
+    char nameWrite[30] = "tests/data/wrote_data.txt";
+    writeArrayOfVectors(dataFromFile, nameWrite);
+    // showVector(*(dataFromFile->array), dataFromFile->dimension);
 }

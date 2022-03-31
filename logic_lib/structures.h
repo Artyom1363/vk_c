@@ -26,11 +26,11 @@ typedef struct data {
 } data;
 
 // this struct uses to return value from scaned file
-typedef struct dataFromScanedFile {
+typedef struct dataVector {
     vector* array;
-    int quantity;
+    int size;
     int dimension;
-} dataFromScanedFile;
+} dataVector;
 
 // this is struct contains pointers (to vectors) for threads
 typedef struct vectorsForThread {
@@ -41,11 +41,15 @@ typedef struct vectorsForThread {
 
 vector createVector(int dimentions);
 
-vector* createArrayOfVectors(int vectorsQuan, int dim);
+vector* createArrayOfVectors(int vectorsQuan, int dimension);
 
 void scanVector(FILE* file, vector* vect, int dimension);
 
-dataFromScanedFile* scanArrayOfVectors(char* fileName);
+dataVector* scanArrayOfVectors(char* fileName);
+
+void writeVector(FILE* file, vector* vect, int dimension);
+
+void writeArrayOfVectors(dataVector* dataArr, char* fileName);
 
 vectorsForThreads* separateByThreads(vector* arrayOfVectors, int vectorsQuan, int threadsQuan);
 

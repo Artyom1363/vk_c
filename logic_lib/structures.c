@@ -25,22 +25,23 @@ vector* createArrayOfVectors(int vectorsQuan, int dimension) {
 
 // this func needs a pointer to empty vector
 void scanVector(FILE* file, vector* vect, int dimension) {
+    if (vect == NULL) return;
+    if (file == NULL) return;
     vect->coords = malloc(sizeof(double) * dimension);
     for (int i = 0; i < dimension; ++i) {
         fscanf(file, "%lf", &(vect->coords[i]));
     }
 }
 
-dataFromScanedFile* scanArrayOfVectors(char* fileName) {
+dataVector* scanArrayOfVectors(char* fileName) {
     FILE* file = fopen(fileName, "r");
     if (file == NULL) {
         return NULL;
     }
     int vectorsQuan = 0;
     int dimension = 0;
-    dataFromScanedFile* dataFromFile = malloc(sizeof(dataFromScanedFile));
+    dataVector* dataFromFile = malloc(sizeof(dataVector));
     fscanf(file, "%d %d", &vectorsQuan, &dimension);
-    printf("scaned value: %d", vectorsQuan);
 
     vector* arrayOfVectors = malloc(sizeof(vector) * vectorsQuan);
     for (int i = 0; i < vectorsQuan; ++i) {
@@ -49,10 +50,27 @@ dataFromScanedFile* scanArrayOfVectors(char* fileName) {
     }
     fclose(file);
     dataFromFile->array = arrayOfVectors;
-    dataFromFile->quantity = vectorsQuan;
+    dataFromFile->size = vectorsQuan;
     dataFromFile->dimension = dimension;
     return dataFromFile;
 }
+
+void writeVector(FILE* file, vector* vect, int dimension) {
+    if (vect == NULL) return;
+    if (file == NULL) return;
+    for (int i = 0; i < dimension; ++i) {
+        fprintf(file, "%lf ", vect->coords[i]);
+    }
+    fprintf(file, "\n");
+}
+
+void writeArrayOfVectors(dataVector* dataArr, char* fileName) {
+    FILE* file = fopen(fileName, "w");
+    fprintf(file, "%d %d\n", dataArr->size, dataArr->dimension);
+    for (int i = 0; i < dataArr->size; ++i) {
+        writeVector(file, dataArr->array, dataArr->dimension);
+    }
+} 
 
 void showVector(vector vect, int dim) {
     for (int i = 0; i < dim; ++i) {
