@@ -9,21 +9,21 @@ extern "C" {
 #define EPS 0.00001
 
 
-void setCoordsToVect(vector* v1, int dim) {
-    for (int i = 0; i < dim; ++i) {
-        v1->coords[i] = i;
-    }
+dataVectors* getTestVectors() {
+    char nameRead[30] = "tests/data/vectors.txt";
+    dataVectors* dataFromFile = scanArrayOfVectors(nameRead);
+    return dataFromFile;
 }
 
-TEST(TestGrouping, insertToUserList) {
-    int dim = 5;
-    vector* vect = createVector(dim);
-    setCoordsToVect(vect, dim);
-    EXPECT_EQ(vect->coords[0], 0);
-    EXPECT_EQ(vect->coords[1], 1);
-    EXPECT_EQ(vect->coords[2], 2);
-    EXPECT_EQ(vect->coords[3], 3);
+vector* getTestInitVect(int dimension) {
+    vector* initialVect = (vector*)malloc(sizeof(vector));
+    FILE* file = fopen("tests/data/initVect.txt", "r");
+    scanVector(file, initialVect, dimension);
+    fclose(file);
+    return initialVect;
 }
+
+
 
 
 TEST(TestStructures, separateByThreads) {
@@ -50,35 +50,22 @@ TEST(TestStructures, separateByThreads) {
 
 TEST(TestCalculating, calculateCosineDist) {
 
-    int dim = 3;
-    vector* vect = createVector(dim);
-    vector* initVect = createVector(dim);
-    vect->coords[0] = 1.0;
-    vect->coords[1] = 1.0;
-    vect->coords[2] = 1.0;
-    initVect->coords[0] = 1.0;
-    initVect->coords[1] = 1.0;
-    initVect->coords[2] = 1.0;
-    double dist = calculateCosineDist(vect, initVect, dim);
-    ASSERT_TRUE(abs(dist - 1.0) < EPS);
+    dataVectors* dataFromFile = getTestVectors();
+    int dimension = dataFromFile->dimension;
+    vector* initialVect = getTestInitVect(dimension);
+    vector* vect = dataFromFile->array;
 
-    vect->coords[0] = 1.5;
-    vect->coords[1] = 1.3;
-    vect->coords[2] = 0.0;
-    initVect->coords[0] = 0;
-    initVect->coords[1] = 0;
-    initVect->coords[2] = 15.0;
-    dist = calculateCosineDist(vect, initVect, dim);
-    ASSERT_TRUE(abs(dist) < EPS);
+    double dist;
 
-    vect->coords[0] = 1.0;
-    vect->coords[1] = 1.5;
-    vect->coords[2] = 2.1;
-    initVect->coords[0] = 2.1;
-    initVect->coords[1] = 3.3;
-    initVect->coords[2] = 1.0;
-    dist = calculateCosineDist(vect, initVect, dim);
-    ASSERT_TRUE(abs(dist - 0.818866) < EPS);
+    dist = calculateCosineDist(vect, initialVect, dimension);
+    ASSERT_TRUE(abs(dist - 0.92582009) < EPS);
+
+    dist = calculateCosineDist(vect + 1, initialVect, dimension);
+    ASSERT_TRUE(abs(dist - 0.98019605) < EPS);
+
+    dist = calculateCosineDist(vect + 2, initialVect, dimension);
+    ASSERT_TRUE(abs(dist - 0.98473192) < EPS);
+    
 }
 
 TEST(TestGrouping, scanVector) {
@@ -95,16 +82,29 @@ TEST(TestGrouping, scanVector) {
 }
 
 TEST(TestCalculating, getMinVector) {
-    char nameRead[30] = "tests/data/vectors.txt";
-    dataVectors* dataFromFile = scanArrayOfVectors(nameRead);
-    vector* initialVect = (vector*)malloc(sizeof(vector));
-    FILE* file = fopen("tests/data/initVect.txt", "r");
-    scanVector(file, initialVect, dataFromFile->dimension);
-    fclose(file);
+    dataVectors* dataFromFile = getTestVectors();
+    vector* initialVect = getTestInitVect(dataFromFile->dimension);
     
     vector* bestVector = getMinVector(dataFromFile, initialVect);
 
+    EXPECT_EQ(bestVector->coords[0], 3.0);
+    EXPECT_EQ(bestVector->coords[1], 2.0);
+    EXPECT_EQ(bestVector->coords[2], 3.0);
 
+}
+
+TEST(TestCalculating, testParallel) {
+    dataVectors* dataFromFile = getTestVectors();
+    vector* initialVect = getTestInitVect(dataFromFile->dimension);
+    
+    vector* bestVector;
+
+    bestVector = buildThreads(dataFromFile->array, dataFromFile->size, initialVect, 4);
+    EXPECT_EQ(bestVector->coords[0], 3.0);
+    EXPECT_EQ(bestVector->coords[1], 2.0);
+    EXPECT_EQ(bestVector->coords[2], 3.0);
+
+    bestVector = buildOneThread(dataFromFile->array, dataFromFile->size, initialVect);
     EXPECT_EQ(bestVector->coords[0], 3.0);
     EXPECT_EQ(bestVector->coords[1], 2.0);
     EXPECT_EQ(bestVector->coords[2], 3.0);

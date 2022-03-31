@@ -12,7 +12,8 @@ void timeMethods(int quanLaunchesMultiTreads, int quanLaunchesOneTread,
         double elapsed;
         clock_gettime(CLOCK_MONOTONIC, &begin);
 
-        buildThreads(array, sizeOfArray, initial, threadsQuan);
+        vector* bestVect = buildThreads(array, sizeOfArray, initial, threadsQuan);
+        deleteVector(bestVect);
 
         clock_gettime(CLOCK_MONOTONIC, &end);
         elapsed = end.tv_sec - begin.tv_sec;
@@ -25,7 +26,8 @@ void timeMethods(int quanLaunchesMultiTreads, int quanLaunchesOneTread,
         double elapsed;
         clock_gettime(CLOCK_MONOTONIC, &begin);
 
-        buildOneThread(array, sizeOfArray, initial);
+        vector* bestVect = buildOneThread(array, sizeOfArray, initial);
+        deleteVector(bestVect);
 
         clock_gettime(CLOCK_MONOTONIC, &end);
         elapsed = end.tv_sec - begin.tv_sec;

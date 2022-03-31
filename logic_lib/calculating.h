@@ -15,8 +15,8 @@ vector* getMinVector(dataVectors* dataArr, vector* initialVect);
 
 void *thread_routine(void *arg);
 
-void buildThreads(vector* arrayOfVectors, int sizeOfArray, vector* initialVect, int threadsQuantity);
+vector* buildThreads(vector* arrayOfVectors, int sizeOfArray, vector* initialVect, int threadsQuantity);
 
-void buildOneThread(vector* arrayOfVectors, int sizeOfArray, vector* initialVect);
+vector* buildOneThread(vector* arrayOfVectors, int sizeOfArray, vector* initialVect);
 
 #endif

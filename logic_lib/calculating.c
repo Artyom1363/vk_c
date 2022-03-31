@@ -59,7 +59,7 @@ void *thread_routine(void *arg) {
 }
 
 
-void buildThreads(vector* arrayOfVectors, int sizeOfArray, vector* initialVect, int threadsQuantity) {
+vector* buildThreads(vector* arrayOfVectors, int sizeOfArray, vector* initialVect, int threadsQuantity) {
     
     vectorsForThreads* vectorsThreads = separateByThreads(arrayOfVectors, sizeOfArray, threadsQuantity);
     // printf("initial vector: \n");
@@ -108,26 +108,15 @@ void buildThreads(vector* arrayOfVectors, int sizeOfArray, vector* initialVect, 
     vector* bestVect = getMinVector(dataArr, initialVect);
     free(dataArr);
 
-    printf("Best vector is:\n");
-    showVector(bestVect, DIMENTIONS);
-    printf("DIST: %f\n", calculateCosineDist(bestVect, initialVect, DIMENTIONS));
+    // printf("Best vector is:\n");
+    // showVector(bestVect, DIMENTIONS);
+    // printf("DIST: %f\n", calculateCosineDist(bestVect, initialVect, DIMENTIONS));
 
-    deleteVector(bestVect);
     deleteArrayOfVectors(minVectors, threadsQuantity);
+    return bestVect;
 }
 
-void buildOneThread(vector* arrayOfVectors, int sizeOfArray, vector* initialVect) {
-    // printf("initial vector: \n");
-    // showVector(*initialVect, DIMENTIONS);
-    // malloc(sizeof(int));
-    // data* threadData = malloc(sizeof(data));
-    // threadData->initial = initialVect;
-    // threadData->start = arrayOfVectors;
-    // threadData->quantity = sizeOfArray;
-    // vector* bestVect = malloc(sizeof(vector));
-    // threadData->answer = bestVect;
-
-
+vector* buildOneThread(vector* arrayOfVectors, int sizeOfArray, vector* initialVect) {
 
     dataVectors* dataArr = malloc(sizeof(dataVectors));
     dataArr->array = arrayOfVectors;
@@ -136,12 +125,8 @@ void buildOneThread(vector* arrayOfVectors, int sizeOfArray, vector* initialVect
     vector* bestVect = getMinVector(dataArr, initialVect);
     free(dataArr);
 
-    showVector(bestVect, DIMENTIONS);
+    // showVector(bestVect, DIMENTIONS);
 
-
-    // printf("sizeOfArray: %d\n", sizeOfArray);
-    // thread_routine(threadData);
-    printf("DIST: %f\n", calculateCosineDist(bestVect, initialVect, DIMENTIONS));
-
-    deleteVector(bestVect);
+    // printf("DIST: %f\n", calculateCosineDist(bestVect, initialVect, DIMENTIONS));
+    return bestVect;
 }

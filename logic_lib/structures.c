@@ -73,7 +73,7 @@ void writeArrayOfVectors(dataVectors* dataArr, char* fileName) {
     FILE* file = fopen(fileName, "w");
     fprintf(file, "%d %d\n", dataArr->size, dataArr->dimension);
     for (int i = 0; i < dataArr->size; ++i) {
-        writeVector(file, dataArr->array, dataArr->dimension);
+        writeVector(file, (dataArr->array + i), dataArr->dimension);
     }
 } 
 
