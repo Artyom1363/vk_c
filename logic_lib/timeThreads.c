@@ -5,18 +5,19 @@
 
 
 void timeMethods(int quanLaunchesMultiTreads, int quanLaunchesOneTread, 
-                 vector* array, int sizeOfArray, int threadsQuan) {
+                 vector* array, int sizeOfArray, int threadsQuan, int dimension) {
     
-    vector* initial = createVector(DIMENTIONS);
+    vector* initial = createVector(dimension);
 
     for (int i = 0; i < quanLaunchesMultiTreads; ++i) {
         struct timespec begin, end;
         double elapsed;
         clock_gettime(CLOCK_MONOTONIC, &begin);
 
-        vector* bestVect = buildThreads(array, sizeOfArray, initial, threadsQuan);
+        vector* bestVect = buildThreads(array, sizeOfArray, 
+                                        initial, threadsQuan,
+                                        dimension);
         // printf("best vector:\n");
-        // showVector(stdin, bestVect, DIMENTIONS);
         deleteVector(bestVect);
 
         clock_gettime(CLOCK_MONOTONIC, &end);
@@ -30,7 +31,8 @@ void timeMethods(int quanLaunchesMultiTreads, int quanLaunchesOneTread,
         double elapsed;
         clock_gettime(CLOCK_MONOTONIC, &begin);
 
-        vector* bestVect = buildOneThread(array, sizeOfArray, initial);
+        vector* bestVect = buildOneThread(array, sizeOfArray, 
+                                          initial, dimension);
         deleteVector(bestVect);
 
         clock_gettime(CLOCK_MONOTONIC, &end);

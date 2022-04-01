@@ -132,26 +132,31 @@ TEST(Calculating, getMinVector) {
 
 TEST(Calculating, testParallel) {
     EXPECT_TRUE(thread_routine(NULL) == NULL);
+    
     dataVectors* dataFromFile = getTestVectors();
     vector* initialVect = getTestInitVect(dataFromFile->dimension);
     
     vector* bestVector;
 
-    bestVector = buildThreads(dataFromFile->array, dataFromFile->size, initialVect, 4);
+    bestVector = buildThreads(dataFromFile->array, dataFromFile->size, 
+                              initialVect, 4, dataFromFile->dimension);
+                              
     EXPECT_EQ(bestVector->coords[0], 3.0);
     EXPECT_EQ(bestVector->coords[1], 2.0);
     EXPECT_EQ(bestVector->coords[2], 3.0);
     deleteVector(bestVector);
-    EXPECT_TRUE(buildThreads(NULL, 1, initialVect, 1) == NULL);
-    EXPECT_TRUE(buildThreads(dataFromFile->array, 1, NULL, 1) == NULL);
+    
+    EXPECT_TRUE(buildThreads(NULL, 1, initialVect, 1, 1) == NULL);
+    EXPECT_TRUE(buildThreads(dataFromFile->array, 1, NULL, 1, 1) == NULL);
 
-    bestVector = buildOneThread(dataFromFile->array, dataFromFile->size, initialVect);
+    bestVector = buildOneThread(dataFromFile->array, dataFromFile->size, 
+                                initialVect, dataFromFile->dimension);
     EXPECT_EQ(bestVector->coords[0], 3.0);
     EXPECT_EQ(bestVector->coords[1], 2.0);
     EXPECT_EQ(bestVector->coords[2], 3.0);
     deleteVector(bestVector);
-    EXPECT_TRUE(buildOneThread(NULL, 1, initialVect) == NULL);
-    EXPECT_TRUE(buildOneThread(dataFromFile->array, 1, NULL) == NULL);
+    EXPECT_TRUE(buildOneThread(NULL, 1, initialVect, 1) == NULL);
+    EXPECT_TRUE(buildOneThread(dataFromFile->array, 1, NULL, 1) == NULL);
 
     deleteArrayOfVectors(dataFromFile->array, dataFromFile->size);
     free(dataFromFile);

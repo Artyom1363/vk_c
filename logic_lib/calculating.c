@@ -62,12 +62,11 @@ void *thread_routine(void *arg) {
     vector* initialVect = threadData->initial;
     vector* startCalc = threadData->start;
     int quantity = threadData->quantity;
-    // printf("DEBUG in calc/thread_routine... ptr is %x\n", startCalc);
 
     dataVectors* dataArr = malloc(sizeof(dataVectors));
     dataArr->array = startCalc;
     dataArr->size = threadData->quantity;
-    dataArr->dimension = DIMENTIONS;
+    dataArr->dimension = threadData->dimension;
     vector* bestVect = getMinVector(dataArr, initialVect);
     free(dataArr);
 
@@ -79,7 +78,8 @@ void *thread_routine(void *arg) {
 
 
 vector* buildThreads(vector* arrayOfVectors, int sizeOfArray, 
-                     vector* initialVect, int threadsQuantity) {
+                     vector* initialVect, int threadsQuantity,
+                     int dimension) {
     
     if (arrayOfVectors == NULL) {
         printf("ERROR buildThreads: first parameter is NULL\n");
@@ -112,6 +112,7 @@ vector* buildThreads(vector* arrayOfVectors, int sizeOfArray,
         threadData[i].start = vectorsThreads[i].start;
         threadData[i].answer = (minVectors + i);
         threadData[i].quantity = vectorsThreads[i].quantity;
+        threadData[i].dimension = dimension;
         int errflag = 0;
         errflag = pthread_create(&(threads[i]), NULL, thread_routine, &(threadData[i]));
 
@@ -133,7 +134,7 @@ vector* buildThreads(vector* arrayOfVectors, int sizeOfArray,
     dataVectors* dataArr = malloc(sizeof(dataVectors));
     dataArr->array = minVectors;
     dataArr->size = threadsQuantity;
-    dataArr->dimension = DIMENTIONS;
+    dataArr->dimension = dimension;
     vector* bestVect = getMinVector(dataArr, initialVect);
     free(dataArr);
 
@@ -145,7 +146,8 @@ vector* buildThreads(vector* arrayOfVectors, int sizeOfArray,
     return bestVect;
 }
 
-vector* buildOneThread(vector* arrayOfVectors, int sizeOfArray, vector* initialVect) {
+vector* buildOneThread(vector* arrayOfVectors, int sizeOfArray, 
+                       vector* initialVect, int dimension) {
 
     if (arrayOfVectors == NULL) {
         printf("ERROR buildOneThread: first parameter is NULL\n");
@@ -159,7 +161,7 @@ vector* buildOneThread(vector* arrayOfVectors, int sizeOfArray, vector* initialV
     dataVectors* dataArr = malloc(sizeof(dataVectors));
     dataArr->array = arrayOfVectors;
     dataArr->size = sizeOfArray;
-    dataArr->dimension = DIMENTIONS;
+    dataArr->dimension = dimension;
     vector* bestVect = getMinVector(dataArr, initialVect);
     free(dataArr);
 

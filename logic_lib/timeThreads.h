@@ -8,6 +8,7 @@
 #include "calculating.h"
 
 void timeMethods(int quanLaunchesMultiTreads, int quanLaunchesOneTread, 
-                 vector* array, int sizeOfArray, int threadsQuan);
+                 vector* array, int sizeOfArray, int threadsQuan, 
+                 int dimension);
 
 #endif

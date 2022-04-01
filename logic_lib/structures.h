@@ -4,7 +4,6 @@
 #include <stdlib.h>
 
 #define VECTORS_QUANTITY 1e4
-#define DIMENTIONS 5
 #define MAX_COORD 500
 #define ZNAM 400.0
 #define THREADS_QUANTITY 4
@@ -22,6 +21,7 @@ typedef struct data {
     vector* initial;
     vector* start;
     vector* answer;
+    int dimension;
     int quantity;
 } data;
 

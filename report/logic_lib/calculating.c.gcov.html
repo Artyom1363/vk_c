@@ -31,13 +31,13 @@
             <td class="headerValue">coverage.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">98</td>
-            <td class="headerCovTableEntry">101</td>
-            <td class="headerCovTableEntryHi">97.0 %</td>
+            <td class="headerCovTableEntry">99</td>
+            <td class="headerCovTableEntry">102</td>
+            <td class="headerCovTableEntryHi">97.1 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2022-04-01 19:02:41</td>
+            <td class="headerValue">2022-04-01 20:19:33</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -72,10 +72,10 @@
 <a name="10"><span class="lineNum">      10 </span><span class="lineCov">         37 :     double lenOfVectorV1 = 0, sqOfLenOfVectorV1 = 0;</span></a>
 <a name="11"><span class="lineNum">      11 </span><span class="lineCov">         37 :     double lenOfVectorV2 = 0, sqOfLenOfVectorV2 = 0;</span></a>
 <a name="12"><span class="lineNum">      12 </span><span class="lineCov">         37 :     double cosDist = 0;</span></a>
-<a name="13"><span class="lineNum">      13 </span><span class="lineCov">        196 :     for (int i = 0; i &lt; dimentions; ++i) {</span></a>
-<a name="14"><span class="lineNum">      14 </span><span class="lineCov">        159 :         cosMultiplication += (v1-&gt;coords)[i] * (v2-&gt;coords)[i];</span></a>
-<a name="15"><span class="lineNum">      15 </span><span class="lineCov">        159 :         sqOfLenOfVectorV1 += (v1-&gt;coords)[i] * (v1-&gt;coords)[i];</span></a>
-<a name="16"><span class="lineNum">      16 </span><span class="lineCov">        159 :         sqOfLenOfVectorV2 += (v2-&gt;coords)[i] * (v2-&gt;coords)[i];</span></a>
+<a name="13"><span class="lineNum">      13 </span><span class="lineCov">        148 :     for (int i = 0; i &lt; dimentions; ++i) {</span></a>
+<a name="14"><span class="lineNum">      14 </span><span class="lineCov">        111 :         cosMultiplication += (v1-&gt;coords)[i] * (v2-&gt;coords)[i];</span></a>
+<a name="15"><span class="lineNum">      15 </span><span class="lineCov">        111 :         sqOfLenOfVectorV1 += (v1-&gt;coords)[i] * (v1-&gt;coords)[i];</span></a>
+<a name="16"><span class="lineNum">      16 </span><span class="lineCov">        111 :         sqOfLenOfVectorV2 += (v2-&gt;coords)[i] * (v2-&gt;coords)[i];</span></a>
 <a name="17"><span class="lineNum">      17 </span>            :     }</a>
 <a name="18"><span class="lineNum">      18 </span><span class="lineCov">         37 :     lenOfVectorV1 = sqrt(sqOfLenOfVectorV1);</span></a>
 <a name="19"><span class="lineNum">      19 </span><span class="lineCov">         37 :     lenOfVectorV2 = sqrt(sqOfLenOfVectorV2);</span></a>
@@ -124,24 +124,24 @@
 <a name="62"><span class="lineNum">      62 </span><span class="lineCov">          4 :     vector* initialVect = threadData-&gt;initial;</span></a>
 <a name="63"><span class="lineNum">      63 </span><span class="lineCov">          4 :     vector* startCalc = threadData-&gt;start;</span></a>
 <a name="64"><span class="lineNum">      64 </span><span class="lineCov">          4 :     int quantity = threadData-&gt;quantity;</span></a>
-<a name="65"><span class="lineNum">      65 </span>            :     // printf(&quot;DEBUG in calc/thread_routine... ptr is %x\n&quot;, startCalc);</a>
-<a name="66"><span class="lineNum">      66 </span>            : </a>
-<a name="67"><span class="lineNum">      67 </span><span class="lineCov">          4 :     dataVectors* dataArr = malloc(sizeof(dataVectors));</span></a>
-<a name="68"><span class="lineNum">      68 </span><span class="lineCov">          4 :     dataArr-&gt;array = startCalc;</span></a>
-<a name="69"><span class="lineNum">      69 </span><span class="lineCov">          4 :     dataArr-&gt;size = threadData-&gt;quantity;</span></a>
-<a name="70"><span class="lineNum">      70 </span><span class="lineCov">          4 :     dataArr-&gt;dimension = DIMENTIONS;</span></a>
-<a name="71"><span class="lineNum">      71 </span><span class="lineCov">          4 :     vector* bestVect = getMinVector(dataArr, initialVect);</span></a>
-<a name="72"><span class="lineNum">      72 </span><span class="lineCov">          4 :     free(dataArr);</span></a>
-<a name="73"><span class="lineNum">      73 </span>            : </a>
-<a name="74"><span class="lineNum">      74 </span>            :     // put vector for transfered pointer</a>
-<a name="75"><span class="lineNum">      75 </span><span class="lineCov">          4 :     *(threadData-&gt;answer) = *(bestVect);</span></a>
-<a name="76"><span class="lineNum">      76 </span><span class="lineCov">          4 :     free(bestVect);</span></a>
-<a name="77"><span class="lineNum">      77 </span><span class="lineCov">          4 :     return NULL;</span></a>
-<a name="78"><span class="lineNum">      78 </span>            : }</a>
+<a name="65"><span class="lineNum">      65 </span>            : </a>
+<a name="66"><span class="lineNum">      66 </span><span class="lineCov">          4 :     dataVectors* dataArr = malloc(sizeof(dataVectors));</span></a>
+<a name="67"><span class="lineNum">      67 </span><span class="lineCov">          4 :     dataArr-&gt;array = startCalc;</span></a>
+<a name="68"><span class="lineNum">      68 </span><span class="lineCov">          4 :     dataArr-&gt;size = threadData-&gt;quantity;</span></a>
+<a name="69"><span class="lineNum">      69 </span><span class="lineCov">          4 :     dataArr-&gt;dimension = threadData-&gt;dimension;</span></a>
+<a name="70"><span class="lineNum">      70 </span><span class="lineCov">          4 :     vector* bestVect = getMinVector(dataArr, initialVect);</span></a>
+<a name="71"><span class="lineNum">      71 </span><span class="lineCov">          4 :     free(dataArr);</span></a>
+<a name="72"><span class="lineNum">      72 </span>            : </a>
+<a name="73"><span class="lineNum">      73 </span>            :     // put vector for transfered pointer</a>
+<a name="74"><span class="lineNum">      74 </span><span class="lineCov">          4 :     *(threadData-&gt;answer) = *(bestVect);</span></a>
+<a name="75"><span class="lineNum">      75 </span><span class="lineCov">          4 :     free(bestVect);</span></a>
+<a name="76"><span class="lineNum">      76 </span><span class="lineCov">          4 :     return NULL;</span></a>
+<a name="77"><span class="lineNum">      77 </span>            : }</a>
+<a name="78"><span class="lineNum">      78 </span>            : </a>
 <a name="79"><span class="lineNum">      79 </span>            : </a>
-<a name="80"><span class="lineNum">      80 </span>            : </a>
-<a name="81"><span class="lineNum">      81 </span><span class="lineCov">          3 : vector* buildThreads(vector* arrayOfVectors, int sizeOfArray, </span></a>
-<a name="82"><span class="lineNum">      82 </span>            :                      vector* initialVect, int threadsQuantity) {</a>
+<a name="80"><span class="lineNum">      80 </span><span class="lineCov">          3 : vector* buildThreads(vector* arrayOfVectors, int sizeOfArray, </span></a>
+<a name="81"><span class="lineNum">      81 </span>            :                      vector* initialVect, int threadsQuantity,</a>
+<a name="82"><span class="lineNum">      82 </span>            :                      int dimension) {</a>
 <a name="83"><span class="lineNum">      83 </span>            :     </a>
 <a name="84"><span class="lineNum">      84 </span><span class="lineCov">          3 :     if (arrayOfVectors == NULL) {</span></a>
 <a name="85"><span class="lineNum">      85 </span><span class="lineCov">          1 :         printf(&quot;ERROR buildThreads: first parameter is NULL\n&quot;);</span></a>
@@ -174,62 +174,64 @@
 <a name="112"><span class="lineNum">     112 </span><span class="lineCov">          4 :         threadData[i].start = vectorsThreads[i].start;</span></a>
 <a name="113"><span class="lineNum">     113 </span><span class="lineCov">          4 :         threadData[i].answer = (minVectors + i);</span></a>
 <a name="114"><span class="lineNum">     114 </span><span class="lineCov">          4 :         threadData[i].quantity = vectorsThreads[i].quantity;</span></a>
-<a name="115"><span class="lineNum">     115 </span><span class="lineCov">          4 :         int errflag = 0;</span></a>
-<a name="116"><span class="lineNum">     116 </span><span class="lineCov">          4 :         errflag = pthread_create(&amp;(threads[i]), NULL, thread_routine, &amp;(threadData[i]));</span></a>
-<a name="117"><span class="lineNum">     117 </span>            : </a>
-<a name="118"><span class="lineNum">     118 </span>            :         // check error</a>
-<a name="119"><span class="lineNum">     119 </span><span class="lineCov">          4 :         if (errflag != 0) {</span></a>
-<a name="120"><span class="lineNum">     120 </span><span class="lineNoCov">          0 :             printf(&quot;Caught error in create thread in cycle: %d\n&quot;, errflag);</span></a>
-<a name="121"><span class="lineNum">     121 </span>            :         }</a>
-<a name="122"><span class="lineNum">     122 </span>            :     }</a>
-<a name="123"><span class="lineNum">     123 </span>            : </a>
-<a name="124"><span class="lineNum">     124 </span>            :     // waiting for all threads</a>
-<a name="125"><span class="lineNum">     125 </span><span class="lineCov">          5 :     for (int i = 0; i &lt; threadsQuantity; ++i) {</span></a>
-<a name="126"><span class="lineNum">     126 </span><span class="lineCov">          4 :         pthread_join(threads[i], NULL);</span></a>
-<a name="127"><span class="lineNum">     127 </span>            :         // showVector(minVectors[i], DIMENTIONS);</a>
-<a name="128"><span class="lineNum">     128 </span>            :     }</a>
-<a name="129"><span class="lineNum">     129 </span><span class="lineCov">          1 :     free(threads);</span></a>
-<a name="130"><span class="lineNum">     130 </span><span class="lineCov">          1 :     free(threadData);</span></a>
-<a name="131"><span class="lineNum">     131 </span><span class="lineCov">          1 :     free(vectorsThreads);</span></a>
-<a name="132"><span class="lineNum">     132 </span>            : </a>
-<a name="133"><span class="lineNum">     133 </span><span class="lineCov">          1 :     dataVectors* dataArr = malloc(sizeof(dataVectors));</span></a>
-<a name="134"><span class="lineNum">     134 </span><span class="lineCov">          1 :     dataArr-&gt;array = minVectors;</span></a>
-<a name="135"><span class="lineNum">     135 </span><span class="lineCov">          1 :     dataArr-&gt;size = threadsQuantity;</span></a>
-<a name="136"><span class="lineNum">     136 </span><span class="lineCov">          1 :     dataArr-&gt;dimension = DIMENTIONS;</span></a>
-<a name="137"><span class="lineNum">     137 </span><span class="lineCov">          1 :     vector* bestVect = getMinVector(dataArr, initialVect);</span></a>
-<a name="138"><span class="lineNum">     138 </span><span class="lineCov">          1 :     free(dataArr);</span></a>
-<a name="139"><span class="lineNum">     139 </span>            : </a>
-<a name="140"><span class="lineNum">     140 </span>            :     // printf(&quot;Best vector is:\n&quot;);</a>
-<a name="141"><span class="lineNum">     141 </span>            :     // showVector(bestVect, DIMENTIONS);</a>
-<a name="142"><span class="lineNum">     142 </span>            :     // printf(&quot;DIST: %f\n&quot;, calculateCosineDist(bestVect, initialVect, DIMENTIONS));</a>
-<a name="143"><span class="lineNum">     143 </span>            : </a>
-<a name="144"><span class="lineNum">     144 </span><span class="lineCov">          1 :     deleteArrayOfVectors(minVectors, threadsQuantity);</span></a>
-<a name="145"><span class="lineNum">     145 </span><span class="lineCov">          1 :     return bestVect;</span></a>
-<a name="146"><span class="lineNum">     146 </span>            : }</a>
-<a name="147"><span class="lineNum">     147 </span>            : </a>
-<a name="148"><span class="lineNum">     148 </span><span class="lineCov">          3 : vector* buildOneThread(vector* arrayOfVectors, int sizeOfArray, vector* initialVect) {</span></a>
-<a name="149"><span class="lineNum">     149 </span>            : </a>
-<a name="150"><span class="lineNum">     150 </span><span class="lineCov">          3 :     if (arrayOfVectors == NULL) {</span></a>
-<a name="151"><span class="lineNum">     151 </span><span class="lineCov">          1 :         printf(&quot;ERROR buildOneThread: first parameter is NULL\n&quot;);</span></a>
-<a name="152"><span class="lineNum">     152 </span><span class="lineCov">          1 :         return NULL;</span></a>
-<a name="153"><span class="lineNum">     153 </span>            :     }</a>
-<a name="154"><span class="lineNum">     154 </span><span class="lineCov">          2 :     if (initialVect == NULL) {</span></a>
-<a name="155"><span class="lineNum">     155 </span><span class="lineCov">          1 :         printf(&quot;ERROR buildOneThread: third parameter is NULL\n&quot;);</span></a>
-<a name="156"><span class="lineNum">     156 </span><span class="lineCov">          1 :         return NULL;</span></a>
-<a name="157"><span class="lineNum">     157 </span>            :     }</a>
-<a name="158"><span class="lineNum">     158 </span>            : </a>
-<a name="159"><span class="lineNum">     159 </span><span class="lineCov">          1 :     dataVectors* dataArr = malloc(sizeof(dataVectors));</span></a>
-<a name="160"><span class="lineNum">     160 </span><span class="lineCov">          1 :     dataArr-&gt;array = arrayOfVectors;</span></a>
-<a name="161"><span class="lineNum">     161 </span><span class="lineCov">          1 :     dataArr-&gt;size = sizeOfArray;</span></a>
-<a name="162"><span class="lineNum">     162 </span><span class="lineCov">          1 :     dataArr-&gt;dimension = DIMENTIONS;</span></a>
-<a name="163"><span class="lineNum">     163 </span><span class="lineCov">          1 :     vector* bestVect = getMinVector(dataArr, initialVect);</span></a>
-<a name="164"><span class="lineNum">     164 </span><span class="lineCov">          1 :     free(dataArr);</span></a>
-<a name="165"><span class="lineNum">     165 </span>            : </a>
-<a name="166"><span class="lineNum">     166 </span>            :     // showVector(bestVect, DIMENTIONS);</a>
+<a name="115"><span class="lineNum">     115 </span><span class="lineCov">          4 :         threadData[i].dimension = dimension;</span></a>
+<a name="116"><span class="lineNum">     116 </span><span class="lineCov">          4 :         int errflag = 0;</span></a>
+<a name="117"><span class="lineNum">     117 </span><span class="lineCov">          4 :         errflag = pthread_create(&amp;(threads[i]), NULL, thread_routine, &amp;(threadData[i]));</span></a>
+<a name="118"><span class="lineNum">     118 </span>            : </a>
+<a name="119"><span class="lineNum">     119 </span>            :         // check error</a>
+<a name="120"><span class="lineNum">     120 </span><span class="lineCov">          4 :         if (errflag != 0) {</span></a>
+<a name="121"><span class="lineNum">     121 </span><span class="lineNoCov">          0 :             printf(&quot;Caught error in create thread in cycle: %d\n&quot;, errflag);</span></a>
+<a name="122"><span class="lineNum">     122 </span>            :         }</a>
+<a name="123"><span class="lineNum">     123 </span>            :     }</a>
+<a name="124"><span class="lineNum">     124 </span>            : </a>
+<a name="125"><span class="lineNum">     125 </span>            :     // waiting for all threads</a>
+<a name="126"><span class="lineNum">     126 </span><span class="lineCov">          5 :     for (int i = 0; i &lt; threadsQuantity; ++i) {</span></a>
+<a name="127"><span class="lineNum">     127 </span><span class="lineCov">          4 :         pthread_join(threads[i], NULL);</span></a>
+<a name="128"><span class="lineNum">     128 </span>            :         // showVector(minVectors[i], DIMENTIONS);</a>
+<a name="129"><span class="lineNum">     129 </span>            :     }</a>
+<a name="130"><span class="lineNum">     130 </span><span class="lineCov">          1 :     free(threads);</span></a>
+<a name="131"><span class="lineNum">     131 </span><span class="lineCov">          1 :     free(threadData);</span></a>
+<a name="132"><span class="lineNum">     132 </span><span class="lineCov">          1 :     free(vectorsThreads);</span></a>
+<a name="133"><span class="lineNum">     133 </span>            : </a>
+<a name="134"><span class="lineNum">     134 </span><span class="lineCov">          1 :     dataVectors* dataArr = malloc(sizeof(dataVectors));</span></a>
+<a name="135"><span class="lineNum">     135 </span><span class="lineCov">          1 :     dataArr-&gt;array = minVectors;</span></a>
+<a name="136"><span class="lineNum">     136 </span><span class="lineCov">          1 :     dataArr-&gt;size = threadsQuantity;</span></a>
+<a name="137"><span class="lineNum">     137 </span><span class="lineCov">          1 :     dataArr-&gt;dimension = dimension;</span></a>
+<a name="138"><span class="lineNum">     138 </span><span class="lineCov">          1 :     vector* bestVect = getMinVector(dataArr, initialVect);</span></a>
+<a name="139"><span class="lineNum">     139 </span><span class="lineCov">          1 :     free(dataArr);</span></a>
+<a name="140"><span class="lineNum">     140 </span>            : </a>
+<a name="141"><span class="lineNum">     141 </span>            :     // printf(&quot;Best vector is:\n&quot;);</a>
+<a name="142"><span class="lineNum">     142 </span>            :     // showVector(bestVect, DIMENTIONS);</a>
+<a name="143"><span class="lineNum">     143 </span>            :     // printf(&quot;DIST: %f\n&quot;, calculateCosineDist(bestVect, initialVect, DIMENTIONS));</a>
+<a name="144"><span class="lineNum">     144 </span>            : </a>
+<a name="145"><span class="lineNum">     145 </span><span class="lineCov">          1 :     deleteArrayOfVectors(minVectors, threadsQuantity);</span></a>
+<a name="146"><span class="lineNum">     146 </span><span class="lineCov">          1 :     return bestVect;</span></a>
+<a name="147"><span class="lineNum">     147 </span>            : }</a>
+<a name="148"><span class="lineNum">     148 </span>            : </a>
+<a name="149"><span class="lineNum">     149 </span><span class="lineCov">          3 : vector* buildOneThread(vector* arrayOfVectors, int sizeOfArray, </span></a>
+<a name="150"><span class="lineNum">     150 </span>            :                        vector* initialVect, int dimension) {</a>
+<a name="151"><span class="lineNum">     151 </span>            : </a>
+<a name="152"><span class="lineNum">     152 </span><span class="lineCov">          3 :     if (arrayOfVectors == NULL) {</span></a>
+<a name="153"><span class="lineNum">     153 </span><span class="lineCov">          1 :         printf(&quot;ERROR buildOneThread: first parameter is NULL\n&quot;);</span></a>
+<a name="154"><span class="lineNum">     154 </span><span class="lineCov">          1 :         return NULL;</span></a>
+<a name="155"><span class="lineNum">     155 </span>            :     }</a>
+<a name="156"><span class="lineNum">     156 </span><span class="lineCov">          2 :     if (initialVect == NULL) {</span></a>
+<a name="157"><span class="lineNum">     157 </span><span class="lineCov">          1 :         printf(&quot;ERROR buildOneThread: third parameter is NULL\n&quot;);</span></a>
+<a name="158"><span class="lineNum">     158 </span><span class="lineCov">          1 :         return NULL;</span></a>
+<a name="159"><span class="lineNum">     159 </span>            :     }</a>
+<a name="160"><span class="lineNum">     160 </span>            : </a>
+<a name="161"><span class="lineNum">     161 </span><span class="lineCov">          1 :     dataVectors* dataArr = malloc(sizeof(dataVectors));</span></a>
+<a name="162"><span class="lineNum">     162 </span><span class="lineCov">          1 :     dataArr-&gt;array = arrayOfVectors;</span></a>
+<a name="163"><span class="lineNum">     163 </span><span class="lineCov">          1 :     dataArr-&gt;size = sizeOfArray;</span></a>
+<a name="164"><span class="lineNum">     164 </span><span class="lineCov">          1 :     dataArr-&gt;dimension = dimension;</span></a>
+<a name="165"><span class="lineNum">     165 </span><span class="lineCov">          1 :     vector* bestVect = getMinVector(dataArr, initialVect);</span></a>
+<a name="166"><span class="lineNum">     166 </span><span class="lineCov">          1 :     free(dataArr);</span></a>
 <a name="167"><span class="lineNum">     167 </span>            : </a>
-<a name="168"><span class="lineNum">     168 </span>            :     // printf(&quot;DIST: %f\n&quot;, calculateCosineDist(bestVect, initialVect, DIMENTIONS));</a>
-<a name="169"><span class="lineNum">     169 </span><span class="lineCov">          1 :     return bestVect;</span></a>
-<a name="170"><span class="lineNum">     170 </span>            : }</a>
+<a name="168"><span class="lineNum">     168 </span>            :     // showVector(bestVect, DIMENTIONS);</a>
+<a name="169"><span class="lineNum">     169 </span>            : </a>
+<a name="170"><span class="lineNum">     170 </span>            :     // printf(&quot;DIST: %f\n&quot;, calculateCosineDist(bestVect, initialVect, DIMENTIONS));</a>
+<a name="171"><span class="lineNum">     171 </span><span class="lineCov">          1 :     return bestVect;</span></a>
+<a name="172"><span class="lineNum">     172 </span>            : }</a>
 </pre>
       </td>
     </tr>
