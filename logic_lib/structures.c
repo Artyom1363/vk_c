@@ -3,6 +3,10 @@
 
 
 void createCoordsForVector(vector* vect, int dimension) {
+    if (vect == NULL) {
+        printf("ERROR createCoordsForVector: first param is NULL\n");
+        return;
+    }
     vect->coords = malloc(sizeof(double) * dimension);
     for (int i = 0; i < dimension; ++i) {
         (vect->coords)[i] = (rand() % MAX_COORD) / ZNAM;
@@ -41,6 +45,7 @@ void scanVector(FILE* file, vector* vect, int dimension) {
 dataVectors* scanArrayOfVectors(char* fileName) {
     FILE* file = fopen(fileName, "r");
     if (file == NULL) {
+        printf("ERROR scanArrayOfVectors: cant open file!\n");
         return NULL;
     }
     int vectorsQuan = 0;
@@ -70,7 +75,15 @@ void writeVector(FILE* file, vector* vect, int dimension) {
 }
 
 void writeArrayOfVectors(dataVectors* dataArr, char* fileName) {
+    if (dataArr == NULL) {
+        printf("ERROR writeArrayOfVectors: first param is NULL!\n");
+        return;
+    }
     FILE* file = fopen(fileName, "w");
+    if (file == NULL) {
+        printf("ERROR scanArrayOfVectors: cant open file!\n");
+        return;
+    }
     fprintf(file, "%d %d\n", dataArr->size, dataArr->dimension);
     for (int i = 0; i < dataArr->size; ++i) {
         writeVector(file, (dataArr->array + i), dataArr->dimension);
@@ -82,7 +95,10 @@ void writeArrayOfVectors(dataVectors* dataArr, char* fileName) {
 
 // returns list, with pointers to array of vector for each thread
 vectorsForThreads* separateByThreads(vector* arrayOfVectors, int vectorsQuan, int threadsQuan) {
-    if (threadsQuan < 1) {
+    if (threadsQuan < 1) return NULL;
+
+    if (arrayOfVectors == NULL) {
+        printf("ERROR separateByThreads: first param is NULL!\n");
         return NULL;
     }
     // printf("DEBUG IN structures/separate... vectorsQuan: %d \n", vectorsQuan);
@@ -102,6 +118,7 @@ vectorsForThreads* separateByThreads(vector* arrayOfVectors, int vectorsQuan, in
 
 
 vector* copyVector(vector* vect, int dimension) {
+    if (vect == NULL) return NULL;
     vector* res = malloc(sizeof(vector));
     res->coords = malloc(sizeof(double) * dimension);
     for (int i = 0; i < dimension; ++i) {
