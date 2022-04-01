@@ -42,3 +42,5 @@ create_report:
 	lcov -t "tests/test_cosin_dist" -o coverage.info -c -d logic_lib/ && \
 	genhtml -o report coverage.info
 	cp -r build/report .
+	cd report && \
+	python3 -m http.server 8000

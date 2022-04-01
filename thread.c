@@ -9,6 +9,13 @@
 
 
 
+void showVector(vector* vect, int dimension) {
+    for (int i = 0; i < dimension; ++i) {
+        printf("%lf ", (vect->coords)[i]);
+    }
+    printf("\n");
+}
+
 int main(int argc, char *argv[]) {
     int opt, threads = 0;
     char *opts = "p:", c;

@@ -78,13 +78,6 @@ void writeArrayOfVectors(dataVectors* dataArr, char* fileName) {
     fclose(file);
 } 
 
-void showVector(vector* vect, int dimension) {
-    for (int i = 0; i < dimension; ++i) {
-        printf("%lf ", (vect->coords)[i]);
-    }
-    printf("\n");
-}
-
 
 
 // returns list, with pointers to array of vector for each thread

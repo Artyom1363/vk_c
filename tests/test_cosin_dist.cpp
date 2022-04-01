@@ -60,7 +60,9 @@ TEST(WorkWithFile, scanVector) {
 
 
 TEST(Structures, separateByThreads) {
-    // separateByThreads(vector* arrayOfVectors, int vectorsQuan, int threadsQuan)
+    vector* testVector = createVector(3);
+    deleteVector(testVector);
+
     int threadsQuan = 3;
     int vectorsQuan = 10;
     vector* arrayOfVectors = createArrayOfVectors(vectorsQuan, threadsQuan);
@@ -85,6 +87,8 @@ TEST(Structures, separateByThreads) {
 }
 
 TEST(Calculating, calculateCosineDist) {
+
+    EXPECT_EQ(calculateCosineDist(NULL, NULL, 10), 2.0);
 
     dataVectors* dataFromFile = getTestVectors();
     int dimension = dataFromFile->dimension;
@@ -111,6 +115,9 @@ TEST(Calculating, getMinVector) {
     dataVectors* dataFromFile = getTestVectors();
     vector* initialVect = getTestInitVect(dataFromFile->dimension);
     
+
+    EXPECT_TRUE(getMinVector(dataFromFile, NULL) == NULL);
+    EXPECT_TRUE(getMinVector(NULL, initialVect) == NULL);
     vector* bestVector = getMinVector(dataFromFile, initialVect);
 
     EXPECT_EQ(bestVector->coords[0], 3.0);
@@ -119,9 +126,12 @@ TEST(Calculating, getMinVector) {
 
     deleteVector(initialVect);
     deleteVector(bestVector);
+    deleteArrayOfVectors(dataFromFile->array, dataFromFile->size);
+    free(dataFromFile);
 }
 
 TEST(Calculating, testParallel) {
+    EXPECT_TRUE(thread_routine(NULL) == NULL);
     dataVectors* dataFromFile = getTestVectors();
     vector* initialVect = getTestInitVect(dataFromFile->dimension);
     
@@ -132,13 +142,19 @@ TEST(Calculating, testParallel) {
     EXPECT_EQ(bestVector->coords[1], 2.0);
     EXPECT_EQ(bestVector->coords[2], 3.0);
     deleteVector(bestVector);
+    EXPECT_TRUE(buildThreads(NULL, 1, initialVect, 1) == NULL);
+    EXPECT_TRUE(buildThreads(dataFromFile->array, 1, NULL, 1) == NULL);
 
     bestVector = buildOneThread(dataFromFile->array, dataFromFile->size, initialVect);
     EXPECT_EQ(bestVector->coords[0], 3.0);
     EXPECT_EQ(bestVector->coords[1], 2.0);
     EXPECT_EQ(bestVector->coords[2], 3.0);
-
-    deleteVector(initialVect);
     deleteVector(bestVector);
+    EXPECT_TRUE(buildOneThread(NULL, 1, initialVect) == NULL);
+    EXPECT_TRUE(buildOneThread(dataFromFile->array, 1, NULL) == NULL);
+
+    deleteArrayOfVectors(dataFromFile->array, dataFromFile->size);
+    free(dataFromFile);
+    deleteVector(initialVect);
 }
 

@@ -78,7 +78,8 @@ void *thread_routine(void *arg) {
 }
 
 
-vector* buildThreads(vector* arrayOfVectors, int sizeOfArray, vector* initialVect, int threadsQuantity) {
+vector* buildThreads(vector* arrayOfVectors, int sizeOfArray, 
+                     vector* initialVect, int threadsQuantity) {
     
     if (arrayOfVectors == NULL) {
         printf("ERROR buildThreads: first parameter is NULL\n");
@@ -88,9 +89,11 @@ vector* buildThreads(vector* arrayOfVectors, int sizeOfArray, vector* initialVec
         printf("ERROR buildThreads: third parameter is NULL\n");
         return NULL;
     }
-    vectorsForThreads* vectorsThreads = separateByThreads(arrayOfVectors, sizeOfArray, threadsQuantity);
+    vectorsForThreads* vectorsThreads = separateByThreads(arrayOfVectors, 
+                                                          sizeOfArray, 
+                                                          threadsQuantity);
     // printf("initial vector: \n");
-    // showVector(*initialVect, DIMENTIONS);
+    // showVector(stdin, *initialVect, DIMENTIONS);
     // for (int i = 0; i < threadsQuantity; ++i) {
         // printf("DEBUG in calc/buildThreads ptr is %x\n", vectorsThreads[i].start);
     // }

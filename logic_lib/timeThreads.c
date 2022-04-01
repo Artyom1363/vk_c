@@ -2,6 +2,8 @@
 #include "structures.h"
 #include "calculating.h"
 
+
+
 void timeMethods(int quanLaunchesMultiTreads, int quanLaunchesOneTread, 
                  vector* array, int sizeOfArray, int threadsQuan) {
     
@@ -13,6 +15,8 @@ void timeMethods(int quanLaunchesMultiTreads, int quanLaunchesOneTread,
         clock_gettime(CLOCK_MONOTONIC, &begin);
 
         vector* bestVect = buildThreads(array, sizeOfArray, initial, threadsQuan);
+        // printf("best vector:\n");
+        // showVector(stdin, bestVect, DIMENTIONS);
         deleteVector(bestVect);
 
         clock_gettime(CLOCK_MONOTONIC, &end);

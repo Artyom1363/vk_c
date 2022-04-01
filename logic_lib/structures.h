@@ -53,7 +53,7 @@ void writeArrayOfVectors(dataVectors* dataArr, char* fileName);
 
 vectorsForThreads* separateByThreads(vector* arrayOfVectors, int vectorsQuan, int threadsQuan);
 
-void showVector(vector* vect, int dimension);
+// void showVector(FILE* file, vector* vect, int dimension);
 
 vector* copyVector(vector* vect, int dimension);
 
