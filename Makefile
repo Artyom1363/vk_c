@@ -11,6 +11,7 @@ run:
 	cd build && \
 	./start
 
+# fast build (without removing build directory)
 fb:
 	cd build && \
 	cmake .. && \

@@ -2,6 +2,10 @@
 
 
 double calculateCosineDist(vector* v1, vector* v2, int dimentions) {
+    if (v1 == NULL || v2 == NULL) {
+        printf("ERROR: CALLED calculateCosineDist WITH NULL VECTOR\n");
+        return 2.0;
+    }
     double cosMultiplication = 0;
     double lenOfVectorV1 = 0, sqOfLenOfVectorV1 = 0;
     double lenOfVectorV2 = 0, sqOfLenOfVectorV2 = 0;
@@ -18,6 +22,14 @@ double calculateCosineDist(vector* v1, vector* v2, int dimentions) {
 }
 
 vector* getMinVector(dataVectors* dataArr, vector* initialVect) {
+    if (dataArr == NULL) {
+        printf("ERROR getMinVector: GOT NULL VALUE in first parameter\n");
+        return NULL;
+    }
+    if (initialVect == NULL) {
+        printf("ERROR getMinVector: GOT NULL VALUE in second parameter\n");
+        return NULL;
+    }
     int sizeOfArray = dataArr->size;
     int dimension = dataArr->dimension;
     vector* array = dataArr->array;
@@ -28,6 +40,10 @@ vector* getMinVector(dataVectors* dataArr, vector* initialVect) {
 
     for (int i = 0; i < sizeOfArray; ++i) {
         double dist = calculateCosineDist((dataArr->array + i), initialVect, dimension);
+        if (dist > 1.1) {
+            printf("ERROR getMinVector: GET ERROR FROM calculateCosineDist\n");
+            return NULL;
+        }
         if (dist > minDist) {   
             minDist = dist;
             numOfBestVect = i;
@@ -38,7 +54,10 @@ vector* getMinVector(dataVectors* dataArr, vector* initialVect) {
 }
 
 void *thread_routine(void *arg) {
-    
+    if (arg == NULL) {
+        printf("ERROR thread_routine: GOT NULL VALUE as parameter\n");
+        return;
+    }
     data* threadData = (data*)arg;
     vector* initialVect = threadData->initial;
     vector* startCalc = threadData->start;
@@ -61,13 +80,20 @@ void *thread_routine(void *arg) {
 
 vector* buildThreads(vector* arrayOfVectors, int sizeOfArray, vector* initialVect, int threadsQuantity) {
     
+    if (arrayOfVectors == NULL) {
+        printf("ERROR buildThreads: first parameter is NULL\n");
+        return NULL;
+    }
+    if (initialVect == NULL) {
+        printf("ERROR buildThreads: third parameter is NULL\n");
+        return NULL;
+    }
     vectorsForThreads* vectorsThreads = separateByThreads(arrayOfVectors, sizeOfArray, threadsQuantity);
     // printf("initial vector: \n");
     // showVector(*initialVect, DIMENTIONS);
     // for (int i = 0; i < threadsQuantity; ++i) {
         // printf("DEBUG in calc/buildThreads ptr is %x\n", vectorsThreads[i].start);
     // }
-    // showVector(*(vectorsThreads->start), DIMENTIONS);
     // printf("DEBUG: quantity of vectors:%d\n", calculateVectorsQuantity(vectorsThreads, threadsQuantity));
 
     data* threadData = malloc(sizeof(data) * threadsQuantity);
@@ -117,6 +143,15 @@ vector* buildThreads(vector* arrayOfVectors, int sizeOfArray, vector* initialVec
 }
 
 vector* buildOneThread(vector* arrayOfVectors, int sizeOfArray, vector* initialVect) {
+
+    if (arrayOfVectors == NULL) {
+        printf("ERROR buildOneThread: first parameter is NULL\n");
+        return NULL;
+    }
+    if (initialVect == NULL) {
+        printf("ERROR buildOneThread: third parameter is NULL\n");
+        return NULL;
+    }
 
     dataVectors* dataArr = malloc(sizeof(dataVectors));
     dataArr->array = arrayOfVectors;

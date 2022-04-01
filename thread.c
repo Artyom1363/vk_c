@@ -1,12 +1,11 @@
-// compile in docker with: gcc -g -lm -pthread thread.c
-#include <stdlib.h> // EXIT_SUCCESS
+#include <stdlib.h>
 #include <pthread.h>
 #include <stdio.h>
 #include <unistd.h>
 
-#include "logic_lib/structures.h"
-#include "logic_lib/timeThreads.h"
-#include "logic_lib/calculating.h"
+#include "structures.h"
+#include "timeThreads.h"
+#include "calculating.h"
 
 
 
@@ -22,7 +21,7 @@ int main(int argc, char *argv[]) {
         }
     }
     if (threads == 0) {
-        printf("You have not set threads quantity, we will use default value: 4\n");
+        printf("You have not set threads quantity, so the launch will be with the default value: 4\n");
         printf("If you want to set threads quantity set -p5 (for example)\n");
         threads = 4;
     } else {

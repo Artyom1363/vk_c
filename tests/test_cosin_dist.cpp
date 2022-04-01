@@ -26,7 +26,7 @@ vector* getTestInitVect(int dimension) {
 
 
 
-TEST(TestStructures, separateByThreads) {
+TEST(Structures, separateByThreads) {
     // separateByThreads(vector* arrayOfVectors, int vectorsQuan, int threadsQuan)
     int threadsQuan = 3;
     int vectorsQuan = 10;
@@ -48,7 +48,7 @@ TEST(TestStructures, separateByThreads) {
 
 }
 
-TEST(TestCalculating, calculateCosineDist) {
+TEST(Calculating, calculateCosineDist) {
 
     dataVectors* dataFromFile = getTestVectors();
     int dimension = dataFromFile->dimension;
@@ -58,30 +58,27 @@ TEST(TestCalculating, calculateCosineDist) {
     double dist;
 
     dist = calculateCosineDist(vect, initialVect, dimension);
-    ASSERT_TRUE(abs(dist - 0.92582009) < EPS);
+    EXPECT_TRUE(abs(dist - 0.92582009) < EPS);
 
     dist = calculateCosineDist(vect + 1, initialVect, dimension);
-    ASSERT_TRUE(abs(dist - 0.98019605) < EPS);
+    EXPECT_TRUE(abs(dist - 0.98019605) < EPS);
 
     dist = calculateCosineDist(vect + 2, initialVect, dimension);
-    ASSERT_TRUE(abs(dist - 0.98473192) < EPS);
+    EXPECT_TRUE(abs(dist - 0.98473192) < EPS);
     
 }
 
-TEST(TestGrouping, scanVector) {
-    char nameRead[30] = "tests/data/test_data.txt";
+TEST(Grouping, scanVector) {
+    char nameRead[30] = "tests/data/vectors.txt";
     dataVectors* dataFromFile = scanArrayOfVectors(nameRead);
-    EXPECT_EQ(dataFromFile->size, 1);
+    EXPECT_EQ(dataFromFile->size, 10);
     EXPECT_EQ(dataFromFile->dimension, 3);
     EXPECT_EQ((dataFromFile->array->coords)[0], 1.0);
     EXPECT_EQ((dataFromFile->array->coords)[1], 2.0);
     EXPECT_EQ((dataFromFile->array->coords)[2], 3.0);
-    char nameWrite[30] = "tests/data/wrote_data.txt";
-    writeArrayOfVectors(dataFromFile, nameWrite);
-    // showVector(*(dataFromFile->array), dataFromFile->dimension);
 }
 
-TEST(TestCalculating, getMinVector) {
+TEST(Calculating, getMinVector) {
     dataVectors* dataFromFile = getTestVectors();
     vector* initialVect = getTestInitVect(dataFromFile->dimension);
     
@@ -93,7 +90,7 @@ TEST(TestCalculating, getMinVector) {
 
 }
 
-TEST(TestCalculating, testParallel) {
+TEST(Calculating, testParallel) {
     dataVectors* dataFromFile = getTestVectors();
     vector* initialVect = getTestInitVect(dataFromFile->dimension);
     
