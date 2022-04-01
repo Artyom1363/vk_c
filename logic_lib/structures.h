@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 
-#define VECTORS_QUANTITY 1e4
+#define VECTORS_QUANTITY 1e8
 #define MAX_COORD 500
 #define ZNAM 400.0
 #define THREADS_QUANTITY 4
