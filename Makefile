@@ -34,3 +34,11 @@ testall:
 	make gtest
 	cd build && \
 	valgrind --tool=memcheck --leak-check=yes ./start
+
+create_report:
+	make update
+	make gtest
+	cd build && \
+	lcov -t "tests/test_cosin_dist" -o coverage.info -c -d logic_lib/ && \
+	genhtml -o report coverage.info
+	cp -r build/report .

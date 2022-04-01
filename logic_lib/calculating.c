@@ -56,7 +56,7 @@ vector* getMinVector(dataVectors* dataArr, vector* initialVect) {
 void *thread_routine(void *arg) {
     if (arg == NULL) {
         printf("ERROR thread_routine: GOT NULL VALUE as parameter\n");
-        return;
+        return NULL;
     }
     data* threadData = (data*)arg;
     vector* initialVect = threadData->initial;

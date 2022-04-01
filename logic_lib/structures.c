@@ -75,6 +75,7 @@ void writeArrayOfVectors(dataVectors* dataArr, char* fileName) {
     for (int i = 0; i < dataArr->size; ++i) {
         writeVector(file, (dataArr->array + i), dataArr->dimension);
     }
+    fclose(file);
 } 
 
 void showVector(vector* vect, int dimension) {
