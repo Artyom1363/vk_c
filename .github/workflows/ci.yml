@@ -10,9 +10,8 @@ jobs:
              apt update -y
              apt install cmake -y
              apt install -y cppcheck clang-tidy python3-pip libc6-dbg cmake libgtest-dev
-             make check
       - run: |
              apt install valgrind -y
       - run: |
              make build
-             make test
+             make testall
