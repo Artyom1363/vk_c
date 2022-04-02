@@ -5,7 +5,7 @@
 Пример запуска с дефолтными параметрами (и отключенными флагами):
 You have not set dimension, so the launch will be with the default value: 4
 If you want to set dimension set -d5 (for example)
-You have not set threads quantity, so the launch will be with the default value: 4
+You have not set threads quantity, so the launch will be with the best value for your system: 4
 If you want to set threads quantity set -p5 (for example)
 Number of threads: 4
 Time by 4 threads:3.362776
@@ -16,4 +16,7 @@ Time by one thread:15.026632
 Time by one thread:17.162121
 End of testing!
 
+
+Среднее время выполнения 4 потокоми: 6.1 сек
+Среднее время выполнения одним потоком: 15.8 сек
 Замеры проводились на macbook air, m1.

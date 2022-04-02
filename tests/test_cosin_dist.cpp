@@ -168,6 +168,8 @@ TEST(Calculating, testParallel) {
 TEST(Calculating, StressTesting) {
     int dimension = 3;
     int vectorsQuan = 20;
+    
+    // this functions randomize input data
     vector* initialVect = createVector(dimension);
     vector* arrayOfVectors = createArrayOfVectors(vectorsQuan, dimension);
 
