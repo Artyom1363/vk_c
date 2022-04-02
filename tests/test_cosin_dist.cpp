@@ -65,7 +65,8 @@ TEST(Structures, separateByThreads) {
 
     int threadsQuan = 3;
     int vectorsQuan = 10;
-    vector* arrayOfVectors = createArrayOfVectors(vectorsQuan, threadsQuan);
+    int dimension = 3;
+    vector* arrayOfVectors = createArrayOfVectors(vectorsQuan, dimension);
     vectorsForThreads* vectThreads = separateByThreads(arrayOfVectors, vectorsQuan, threadsQuan);
     EXPECT_EQ(vectThreads[0].quantity, 3);
     EXPECT_EQ(vectThreads[1].quantity, 3);
@@ -163,3 +164,22 @@ TEST(Calculating, testParallel) {
     deleteVector(initialVect);
 }
 
+
+TEST(Calculating, StressTesting) {
+    int dimension = 3;
+    int vectorsQuan = 20;
+    vector* initialVect = createVector(dimension);
+    vector* arrayOfVectors = createArrayOfVectors(vectorsQuan, dimension);
+
+    vector* bestVectorParallel;
+    bestVectorParallel = buildThreads(arrayOfVectors, vectorsQuan, 
+                                      initialVect, 4, dimension);
+
+    vector* bestVectorOneThread;
+    bestVectorOneThread = buildOneThread(arrayOfVectors, vectorsQuan, 
+                                         initialVect, dimension);
+                                
+    EXPECT_EQ(bestVectorParallel->coords[0], bestVectorOneThread->coords[0]);
+    EXPECT_EQ(bestVectorParallel->coords[1], bestVectorOneThread->coords[1]);
+    EXPECT_EQ(bestVectorParallel->coords[2], bestVectorOneThread->coords[2]);
+}
