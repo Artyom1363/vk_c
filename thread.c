@@ -2,6 +2,7 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <sys/sysinfo.h>
 
 #include "structures.h"
 #include "timeThreads.h"
@@ -37,9 +38,9 @@ int main(int argc, char *argv[]) {
         printf("Run with %d dimension\n", dimension);
     }
     if (threads == 0) {
-        printf("You have not set threads quantity, so the launch will be with the default value: 4\n");
+        threads = get_nprocs();
+        printf("You have not set threads quantity, so the launch will be with the best value for your system: %d\n", threads);
         printf("If you want to set threads quantity set -p5 (for example)\n");
-        threads = 4;
     } else {
         printf("You set number of threads: %d\n", threads);
     }
