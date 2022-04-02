@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
     // for (int i = 0; i < VECTORS_QUANTITY; ++i) {
         // showVector((array + i), DIMENTIONS);
     // }
-    timeMethods(1, 1, array, VECTORS_QUANTITY, threads, dimension);
+    timeMethods(2, 2, array, VECTORS_QUANTITY, threads, dimension);
 
     deleteArrayOfVectors(array, VECTORS_QUANTITY);
     

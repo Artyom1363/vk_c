@@ -3,7 +3,7 @@ project(test_cosin_dist)
 
 set(CMAKE_CXX_STANDARD 11)
 # it will not build without -lm -pthread 
-set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-fprofile-arcs -ftest-coverage -O0 -lm -pthread -g")
+set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-fprofile-arcs -ftest-coverage -O0 -lm -pthread -g -Wall -Werror -Wpedantic")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -coverage -lgcov" )
 
 

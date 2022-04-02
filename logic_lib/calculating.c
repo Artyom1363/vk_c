@@ -32,7 +32,6 @@ vector* getMinVector(dataVectors* dataArr, vector* initialVect) {
     }
     int sizeOfArray = dataArr->size;
     int dimension = dataArr->dimension;
-    vector* array = dataArr->array;
 
 
     double minDist = -2.0;
@@ -61,7 +60,6 @@ void *thread_routine(void *arg) {
     data* threadData = (data*)arg;
     vector* initialVect = threadData->initial;
     vector* startCalc = threadData->start;
-    int quantity = threadData->quantity;
 
     dataVectors* dataArr = malloc(sizeof(dataVectors));
     dataArr->array = startCalc;

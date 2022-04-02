@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.0.0)
 # this is name of project
 project(cosin_dist)
 
-set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-fprofile-arcs -ftest-coverage -fPIC -O0 -g")
+set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-fprofile-arcs -ftest-coverage -fPIC -O0 -g -Wall -Werror -Wpedantic")
+
 # set(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-lm -pthread -g")
 
 
